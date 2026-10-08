@@ -51,7 +51,7 @@ export function StoryEnvelope() {
         const b = edge() / bottomGroup.getBoundingClientRect().height;
         const y = (value: number) => 1 - h + h * value;
         topPath.current?.setAttribute("d", `M 0,0 L 1,0 L 1,1 C .88,1 .86,${y(.08)} .71,${y(.08)} C .61,${y(.08)} .54,${y(.48)} .5,${y(.76)} C .46,${y(.48)} .39,${y(.08)} .29,${y(.08)} C .14,${y(.08)} .12,1 0,1 Z`);
-        bottomPath.current?.setAttribute("d", `M 0,${b} C .12,${b} .14,${b * .08} .29,${b * .08} C .39,${b * .08} .46,${b * .48} .5,${b * .76} C .54,${b * .48} .61,${b * .08} .71,${b * .08} C .86,${b * .08} .88,${b} 1,${b} L 1,1 L 0,1 Z`);
+        bottomPath.current?.setAttribute("d", `M 0,${b} C .12,${b} .14,${b * .08} .29,${b * .08} C .39,${b * .08} .46,${b * .48} .5,${b * .76} C .54,${b * .48} .61,${b * .08} .71,${b * .08} C .86,${b * .08} .88,${b} 1,${b} L 1,1.01 L 0,1.01 Z`);
       };
       updatePaths();
 

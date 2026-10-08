@@ -38,8 +38,10 @@ export function Hero() {
     <WeddingOrnaments progress={scrollYProgress} variant="hearts" tone="photo" />
     <motion.div style={reducedMotion ? undefined : { y: contentY, opacity }} className="relative z-10 text-center flex flex-col items-center gap-9 sm:gap-12 pb-10 sm:pb-14">
       <p className="hero-intro cinema-eyebrow text-white">Uma história de amor <span className="mx-3">·</span> 2027</p>
-      <h1 className="hero-logo w-full max-w-2xl mx-auto">
-        <Image src="/utils/logo_white.svg" alt={`${couple.partner1} e ${couple.partner2}`} width={1560} height={627} preload className="w-full h-auto" />
+      <h1 className="hero-logo font-serif text-5xl sm:text-7xl lg:text-9xl font-light tracking-tight leading-none text-white">
+        <span>{couple.partner1}</span>
+        <span className="font-serif italic font-light text-[#C7B79D] px-4">&amp;</span>
+        <span>{couple.partner2}</span>
       </h1>
       <p className="hero-detail whitespace-pre-line font-serif italic text-xl sm:text-3xl font-light leading-relaxed max-w-3xl text-white">{couple.headline}</p>
       <div className="hero-detail flex flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-4 text-[10px] sm:text-xs tracking-[0.22em] uppercase text-white">

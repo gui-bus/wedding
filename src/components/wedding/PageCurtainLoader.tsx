@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { weddingConfig } from "@/config/wedding.config";
 
 export function PageCurtainLoader() {
   const fill = useRef<HTMLDivElement>(null);
+  const { couple } = weddingConfig;
+
   const [isOpening, setIsOpening] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -20,12 +23,9 @@ export function PageCurtainLoader() {
     let completionTimer: ReturnType<typeof setTimeout> | undefined;
     const fallback = window.setTimeout(() => { ready = true; }, 5000);
 
-    const logo = new window.Image();
-    logo.src = "/utils/logo_white.svg";
     const heroImages = Array.from(document.querySelectorAll<HTMLImageElement>("#inicio img"));
     Promise.allSettled([
       document.fonts.ready,
-      logo.decode(),
       ...heroImages.map(image => image.decode()),
     ]).then(() => { if (!disposed) ready = true; });
 
@@ -59,16 +59,6 @@ export function PageCurtainLoader() {
   }, []);
 
   if (isComplete) return null;
-  const logoMask = {
-    maskImage: "url('/utils/logo_white.svg')",
-    WebkitMaskImage: "url('/utils/logo_white.svg')",
-    maskSize: "contain",
-    WebkitMaskSize: "contain",
-    maskRepeat: "no-repeat",
-    WebkitMaskRepeat: "no-repeat",
-    maskPosition: "center",
-    WebkitMaskPosition: "center",
-  };
 
   return (
     <>
@@ -76,10 +66,12 @@ export function PageCurtainLoader() {
         <div className="relative w-full max-w-440 mx-auto h-full overflow-hidden flex items-center justify-center">
           <div aria-hidden="true" className="wedding-loader-left absolute inset-y-0 left-0 w-[50.5%] bg-[#F1F1F1] z-10" />
           <div aria-hidden="true" className="wedding-loader-right absolute inset-y-0 right-0 w-[50.5%] bg-[#F1F1F1] z-10" />
-          <div aria-hidden="true" className="wedding-loader-logo relative z-20 w-44 sm:w-60 md:w-72 aspect-[1560/627] select-none">
-            <div className="absolute inset-0 bg-[#3D2501] opacity-15" style={logoMask} />
-            <div ref={fill} className="absolute inset-0" style={{ clipPath: "inset(0 100% 0 0)" }}>
-              <div className="absolute inset-0 bg-[#3D2501]" style={logoMask} />
+          <div aria-hidden="true" className="wedding-loader-logo relative z-20 px-6 text-center font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-tight leading-none select-none">
+            <div className="text-[#3D2501]/20">
+              <span>{couple.partner1}</span><span className="italic px-3">&amp;</span><span>{couple.partner2}</span>
+            </div>
+            <div ref={fill} className="absolute inset-0 px-6 text-[#3D2501]" style={{ clipPath: "inset(0 100% 0 0)" }}>
+              <span>{couple.partner1}</span><span className="italic px-3 text-[#80654E]">&amp;</span><span>{couple.partner2}</span>
             </div>
           </div>
         </div>
