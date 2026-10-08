@@ -1,12 +1,8 @@
 "use client";
 
 import { WeddingOrnaments } from "./WeddingOrnaments";
-import { weddingConfig } from "@/config/wedding.config";
 
-const colorNames: Record<string, string> = {
-  "#C7B79D": "Areia", "#80654E": "Madeira", "#3D2501": "Café",
-  "#5D613C": "Oliva", "#F5F5DA": "Marfim", "#F1F1F1": "Off-white",
-};
+
 
 export function DressCode() {
   return (
@@ -50,20 +46,6 @@ export function DressCode() {
           </div>
         </div>
 
-        <div className="space-y-7 max-w-4xl mx-auto">
-          <div data-cinema-copy className="text-center space-y-3 max-w-2xl mx-auto">
-            <p className="text-xs tracking-[0.16em] uppercase text-[#80654E]">As cores da nossa celebração</p>
-            <p className="text-sm sm:text-base font-light leading-relaxed text-[#80654E]">Esta é a paleta da decoração do casamento. Essas cores não são obrigatórias para os trajes dos convidados.</p>
-          </div>
-          <div data-cinema-sequence className="grid grid-cols-3 sm:grid-cols-6 gap-x-5 gap-y-7 sm:gap-7">
-            {weddingConfig.dressCode.palette.map(color => (
-              <div key={color.hex} className="text-center space-y-3">
-                <div className="aspect-[3/4] max-w-24 mx-auto rounded-t-full rounded-b-[2rem] ring-1 ring-[#3D2501]/10 shadow-[0_12px_24px_-18px_#3D250150]" style={{ backgroundColor: color.hex }} />
-                <p className="font-serif text-lg sm:text-xl text-[#80654E]">{colorNames[color.hex] ?? color.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
