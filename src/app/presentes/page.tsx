@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ScrollToTopOnMount } from "@/components/wedding/ScrollToTopOnMount";
 
 
 import { GiftList } from "@/components/wedding/GiftList";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function GiftsPage() {
   return (
     <main className="w-full bg-[#F1F1F1] overflow-x-hidden relative">
+      <ScrollToTopOnMount />
       <CinematicExperience>
         <h1 className="sr-only">Lista de presentes</h1>
         <GiftList />
