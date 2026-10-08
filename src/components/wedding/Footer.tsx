@@ -8,11 +8,11 @@ export function Footer() {
   const { couple } = weddingConfig;
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   };
 
   return (
-    <footer className="w-full bg-[#F1F1F1] text-[#1A1715] py-20 sm:py-32 px-6 sm:px-12 lg:px-20 border-t border-[#1A1715]/15 text-center relative overflow-hidden">
+    <footer className="w-full bg-[#F1F1F1] text-[#1A1715] py-20 sm:py-32 px-6 sm:px-12 lg:px-20 text-center relative overflow-hidden">
       <div className="w-full space-y-10">
         <div className="space-y-3">
           <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#8C6D46] block">
@@ -28,8 +28,6 @@ export function Footer() {
         <p className="text-[#73685B] text-sm sm:text-base font-light leading-relaxed">
           Agradecemos por caminhar conosco e fazer parte da celebração mais importante de nossas vidas. Nos vemos no altar!
         </p>
-
-        <div className="w-16 h-px bg-[#1A1715]/20 mx-auto" />
 
         <div className="pt-2">
           <button

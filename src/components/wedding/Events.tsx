@@ -52,11 +52,11 @@ export function Events() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="py-16 sm:py-24 border-t border-[#1A1715]/15 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
+        className="py-16 sm:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center"
       >
         {/* Lado Fotográfico */}
         <div className={`lg:col-span-6 ${isEven ? "" : "lg:order-2"}`}>
-          <div className="relative aspect-[16/10] overflow-hidden bg-[#EFE8DD] group">
+          <div data-cinema-image className="relative aspect-[16/10] rounded-[1.5rem] overflow-hidden bg-[#EFE8DD] group">
             {event.image && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -85,12 +85,12 @@ export function Events() {
             </p>
           </div>
 
-          <p className="text-sm sm:text-base font-light text-[#59524B] leading-relaxed">
+          <p data-cinema-copy className="text-base sm:text-lg font-light text-[#80654E] leading-relaxed">
             {event.address} &mdash; <span className="uppercase font-mono text-xs">{event.cityState}</span>
           </p>
 
           {event.tips && (
-            <p className="text-xs sm:text-sm font-light text-[#8C6D46] italic border-l-2 border-[#8C6D46]/40 pl-4 py-1">
+            <p className="text-xs sm:text-sm font-light text-[#8C6D46] italic pl-4 py-1">
               &ldquo;{event.tips}&rdquo;
             </p>
           )}
@@ -158,14 +158,14 @@ export function Events() {
   return (
     <section
       id="eventos"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#1A1715]"
+      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#1A1715]"
     >
       <div className="w-full space-y-20 sm:space-y-28">
         {/* Cabeçalho Editorial */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#1A1715]/15 pb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8">
           <div className="space-y-3">
             <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#8C6D46] block">
-              [ 03 &bull; LOCAIS & ITINERÁRIO ]
+              [ 02 &bull; LOCAIS & ITINERÁRIO ]
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95]">
               Cerimônia &amp; Festa
@@ -184,7 +184,7 @@ export function Events() {
         </div>
 
         {/* Cronograma Linear Tipográfico do Dia */}
-        <div className="border-t border-[#1A1715]/15 pt-16 space-y-12">
+        <div className="pt-16 space-y-12">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-[#8C6D46]">
               A Sequência dos Momentos
@@ -196,7 +196,7 @@ export function Events() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {scheduleItems.map((item, idx) => (
-              <div key={idx} className="space-y-3 border-t border-[#1A1715]/20 pt-4">
+              <div key={idx} className="space-y-3 pt-4">
                 <span className="font-mono text-2xl font-light text-[#8C6D46] block">
                   {item.time}
                 </span>
@@ -212,7 +212,7 @@ export function Events() {
         </div>
 
         {/* Hospitalidade & Logística (Sem Cards) */}
-        <div className="border-t border-[#1A1715]/15 pt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-2">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#8C6D46] block">
               O ESPAÇO

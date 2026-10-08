@@ -11,7 +11,6 @@ export function Navbar() {
   const navLinks = [
     { name: "Início",          href: "#inicio" },
     { name: "Nossa História",  href: "#historia" },
-    { name: "Galeria",         href: "#galeria" },
     { name: "Cerimônia",       href: "#eventos" },
     { name: "Trajes",          href: "#dress-code" },
     { name: "Presentes",       href: "#presentes" },
@@ -79,7 +78,7 @@ export function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-xs uppercase tracking-[0.25em] text-[#D5C6B4] hover:text-[#F0DEB4] py-2 border-b border-[#C9A96E]/10 transition-colors"
+                  className="text-xs uppercase tracking-[0.25em] text-[#D5C6B4] hover:text-[#F0DEB4] py-2  transition-colors"
                 >
                   {link.name}
                 </a>

@@ -20,7 +20,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: `${weddingConfig.couple.partner1} & ${weddingConfig.couple.partner2} — Casamento`,
-  description: `Convidamos você para celebrar o nosso amor. Cerimônia, recepção, trajes, galeria, presentes e confirmação de presença (RSVP). ${weddingConfig.couple.hashtag}`,
+  description: `Convidamos você para celebrar o nosso amor. Cerimônia, recepção, trajes, presentes e confirmação de presença (RSVP). ${weddingConfig.couple.hashtag}`,
   openGraph: {
     title: `${weddingConfig.couple.partner1} & ${weddingConfig.couple.partner2} — Casamento`,
     description: `Celebre esse dia especial com a gente!`,

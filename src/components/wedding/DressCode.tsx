@@ -28,14 +28,14 @@ export function DressCode() {
   return (
     <section
       id="dress-code"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
       <div className="w-full space-y-20 sm:space-y-28">
         {/* Cabeçalho Editorial */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#3D2501]/15 pb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8">
           <div className="space-y-3">
             <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
-              [ 04 &bull; GUIA DE TRAJES &amp; PALETA ]
+              [ 03 &bull; GUIA DE TRAJES &amp; PALETA ]
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
               Dress Code &amp; Estilo
@@ -48,7 +48,7 @@ export function DressCode() {
         </div>
 
         {/* Declaração Principal do Traje */}
-        <div className="py-8 border-b border-[#3D2501]/15 flex flex-col md:flex-row md:items-baseline justify-between gap-6">
+        <div className="py-8 flex flex-col md:flex-row md:items-baseline justify-between gap-6">
           <div>
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#5D613C] block mb-1 font-semibold">
               INSPIRAÇÕES
@@ -85,10 +85,10 @@ export function DressCode() {
                 className="group space-y-3 cursor-default"
               >
                 <div
-                  className="w-full h-32 sm:h-44 transition-transform duration-500 group-hover:scale-[1.02] border border-[#3D2501]/10 shadow-xs"
+                  className="w-full rounded-[1.25rem] h-32 sm:h-44 transition-transform duration-500 group-hover:scale-[1.02] border border-[#3D2501]/10 shadow-xs"
                   style={{ backgroundColor: color.hex }}
                 />
-                <div className="border-t border-[#3D2501]/15 pt-2 flex items-baseline justify-between">
+                <div className="pt-2 flex items-baseline justify-between">
                   <div>
                     <h4 className="font-serif text-base sm:text-lg font-light text-[#3D2501] group-hover:text-[#5D613C] transition-colors">
                       {color.name}
@@ -107,7 +107,7 @@ export function DressCode() {
         </div>
 
         {/* Guia Editorial de Trajes: Para Elas & Para Eles (Sem Cards!) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 border-t border-[#3D2501]/15 pt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 pt-16">
           {/* Para as Mulheres */}
           <div className="space-y-8">
             <div className="space-y-1">
@@ -119,7 +119,7 @@ export function DressCode() {
               </h3>
             </div>
 
-            <div className="space-y-6 text-sm sm:text-base font-light text-[#5D613C] leading-relaxed divide-y divide-[#3D2501]/10">
+            <div className="space-y-6 text-sm sm:text-base font-light text-[#5D613C] leading-relaxed ">
               <div className="pt-4 space-y-1">
                 <p className="font-serif text-lg font-medium text-[#3D2501]">
                   Vestidos Longos ou Midi Sofisticados
@@ -160,7 +160,7 @@ export function DressCode() {
               </h3>
             </div>
 
-            <div className="space-y-6 text-sm sm:text-base font-light text-[#5D613C] leading-relaxed divide-y divide-[#3D2501]/10">
+            <div className="space-y-6 text-sm sm:text-base font-light text-[#5D613C] leading-relaxed ">
               <div className="pt-4 space-y-1">
                 <p className="font-serif text-lg font-medium text-[#3D2501]">
                   Costume Completo ou Terno
@@ -192,7 +192,7 @@ export function DressCode() {
         </div>
 
         {/* Lembretes de Etiqueta com Carinho (Sem Cards) */}
-        <div className="border-t border-[#3D2501]/15 pt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-2">
             <span className="font-mono text-xs text-[#80654E] uppercase tracking-widest block font-medium">
               TONS CLAROS

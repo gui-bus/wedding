@@ -36,14 +36,14 @@ export function GiftList() {
   return (
     <section
       id="presentes"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
       <div className="w-full space-y-20 sm:space-y-24">
         {/* Cabeçalho Editorial */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#3D2501]/15 pb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8">
           <div className="space-y-3">
             <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
-              [ 05 &bull; LISTA DE PRESENTES ]
+              [ 04 &bull; LISTA DE PRESENTES ]
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
               Mimos &amp; Cotas
@@ -57,7 +57,7 @@ export function GiftList() {
         </div>
 
         {/* Filtros e Busca em Barra Linear */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-[#3D2501]/15 pb-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6">
           {/* Categorias em Texto com Underline */}
           <div className="flex flex-wrap items-center gap-6 sm:gap-8">
             {categories.map((cat) => {
@@ -98,7 +98,7 @@ export function GiftList() {
         </div>
 
         {/* Cota Aberta Personalizada (Linha Minimalista) */}
-        <div className="py-8 border-b border-[#3D2501]/15 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="py-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#5D613C] block font-semibold">
               COTA LIVRE &bull; VALOR PERSONALIZADO
@@ -112,7 +112,7 @@ export function GiftList() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center border-b border-[#3D2501]/30 focus-within:border-[#5D613C] pb-1">
+            <div className="flex items-center focus-within:border-[#5D613C] pb-1">
               <span className="font-mono text-sm text-[#80654E] mr-2">R$</span>
               <input
                 type="number"
@@ -138,7 +138,7 @@ export function GiftList() {
 
         {/* Catálogo de Presentes (Sem Cards!) */}
         {filteredGifts.length === 0 ? (
-          <div className="py-20 text-center border-b border-[#3D2501]/15">
+          <div className="py-20 text-center ">
             <p className="font-serif text-xl font-light text-[#80654E]">
               Nenhum item encontrado para esta busca.
             </p>
@@ -180,7 +180,7 @@ export function GiftList() {
                 </div>
 
                 {/* Preço e Botão */}
-                <div className="pt-3 border-t border-[#3D2501]/15 flex items-baseline justify-between">
+                <div className="pt-3 flex items-baseline justify-between">
                   <span className="font-serif text-2xl font-light text-[#3D2501]">
                     {gift.price ? formatCurrency(gift.price) : "Em breve"}
                   </span>

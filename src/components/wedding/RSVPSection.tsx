@@ -165,14 +165,14 @@ export function RSVPSection() {
     return (
     <section
       id="rsvp"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
       <div className="w-full space-y-16 sm:space-y-20">
         {/* Cabeçalho Editorial */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-[#3D2501]/15 pb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8">
           <div className="space-y-3">
             <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
-              [ 06 &bull; PRESENÇA &amp; CONVITE ]
+              [ 05 &bull; PRESENÇA &amp; CONVITE ]
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
               Confirmação de Presença
