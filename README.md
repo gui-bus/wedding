@@ -1,5 +1,5 @@
 # Giovanna & Edson
-Site adaptado da referência clever-pythagoras. Casamento em 29/05/2027 às 11h30, Quintal e Cia, Rua dos Marceneiros 210, Jardim Valparaíba, São José dos Campos/SP.
+Site adaptado da referência clever-pythagoras. Casamento em 29/05/2027 às 11h30, Quintal & Cia, Rua dos Marceneiros 210, Jardim Valparaíba, São José dos Campos/SP.
 
 ## Executar
 npm install
@@ -8,7 +8,7 @@ npm run dev
 Validação: npx tsc --noEmit, npm run lint, npm run build.
 
 ## Conteúdo
-Configuração em src/config/wedding.config.ts. Paleta solicitada, história desde 2016 e fotografias de alianças, flores, mesas, decoração e paisagens inspecionadas, sem pessoas. Imagens de decoração são ilustrativas, não fotografias do Quintal e Cia. O design usa a referência como base, com foco tipográfico e movimento cinematográfico: entrada dos nomes em máscaras, palavras reveladas com a rolagem, parallax das imagens, uma passagem verde oliva com a data em escala progressiva, entradas de títulos com desfoque suave e blocos em sequência. Presentes, paleta e botões têm efeitos sutis de interação. A galeria está desativada e não aparece no menu. As animações GSAP respeitam prefers-reduced-motion e não prendem a rolagem. O fundo principal é #F1F1F1, o layout usa max-w-440 mx-auto (1760px) e as seções têm altura natural, sem altura mínima de viewport. O traje, o cronograma detalhado da recepção, o estacionamento e o prazo de RSVP não foram informados e não são apresentados como fatos.
+Configuração em src/config/wedding.config.ts. Paleta solicitada, história desde 2016 e fotografias de alianças, flores, mesas, decoração e paisagens inspecionadas, sem pessoas. Imagens de decoração são ilustrativas, não fotografias do Quintal & Cia. O design usa a referência como base, com foco tipográfico e movimento cinematográfico: entrada dos nomes em máscaras, palavras reveladas com a rolagem, parallax das imagens, uma passagem verde oliva com a data em escala progressiva, entradas de títulos com desfoque suave e blocos em sequência. Presentes, paleta e botões têm efeitos sutis de interação. A galeria está desativada e não aparece no menu. As animações GSAP respeitam prefers-reduced-motion e não prendem a rolagem. O fundo principal é #F1F1F1, o layout usa max-w-440 mx-auto (1760px) e as seções têm altura natural, sem altura mínima de viewport. O traje, o cronograma detalhado da recepção, o estacionamento e o prazo de RSVP não foram informados e não são apresentados como fatos.
 
 ## Presentes e cartão
 O catálogo importado está em src/config/gifts.json: 32 itens contendo apenas name, category e url. A origem informa 87 itens, mas só 32 foram enviados. Preços não foram importados. As fotos foram inspecionadas; quatro com pessoas ou mãos são substituídas por uma fotografia ilustrativa de alianças na interface, preservando a URL original no JSON.
@@ -27,3 +27,4 @@ Sem integração, o formulário está desativado. Falhas na gravação não são
 
 ## Publicação
 Projeto Next.js com rota de servidor: usar hospedagem compatível com Node/Next.js, como Vercel. Nenhuma publicação foi realizada.
+A branch de trabalho e de produção é main. Na integração Git da Vercel, configurar Production Branch como main para publicar os novos commits dessa branch.
