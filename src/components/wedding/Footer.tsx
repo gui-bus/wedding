@@ -12,7 +12,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#F1F1F1] text-[#1A1715] py-20 sm:py-32 px-6 sm:px-12 lg:px-20 text-center relative overflow-hidden">
+    <footer className="cinema-footer w-full bg-[#F1F1F1] text-[#1A1715] py-20 sm:py-32 px-6 sm:px-12 lg:px-20 text-center relative overflow-hidden">
       <div className="w-full space-y-10">
         <div className="space-y-3">
           <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#8C6D46] block">

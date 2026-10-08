@@ -32,7 +32,7 @@ export function Story() {
           { year: "2016", label: "Nossos caminhos se encontram" },
           { year: "Uma vida", label: "Construída lado a lado" },
           { year: "2027", label: "O nosso grande sim" },
-        ].map(item => <div key={item.year} data-cinema-copy className="space-y-4">
+        ].map(item => <div key={item.year} data-cinema-copy data-cinema-drift className="space-y-4">
           <p className="font-serif italic text-3xl sm:text-5xl lg:text-6xl tracking-tight text-[#5D613C]">{item.year}</p>
           <p className="text-[10px] sm:text-xs tracking-[0.16em] uppercase text-[#80654E] leading-relaxed">{item.label}</p>
         </div>)}

@@ -152,11 +152,11 @@ export function GiftList() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, delay: (index % 4) * 0.1 }}
-                className="group flex flex-col justify-between space-y-4"
+                className="cinema-gift group flex flex-col justify-between space-y-4"
               >
                 <div className="space-y-3">
                   {/* Foto com Zoom Suave */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE8DD] border border-[#3D2501]/10">
+                  <div className="relative rounded-2xl aspect-[4/3] overflow-hidden bg-[#EFE8DD] border border-[#3D2501]/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={gift.image}

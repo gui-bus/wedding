@@ -82,7 +82,7 @@ export function DressCode() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group space-y-3 cursor-default"
+                className="cinema-color group space-y-3 cursor-default"
               >
                 <div
                   className="w-full rounded-[1.25rem] h-32 sm:h-44 transition-transform duration-500 group-hover:scale-[1.02] border border-[#3D2501]/10 shadow-xs"

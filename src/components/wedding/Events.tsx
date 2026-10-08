@@ -56,13 +56,13 @@ export function Events() {
       >
         {/* Lado Fotográfico */}
         <div className={`lg:col-span-6 ${isEven ? "" : "lg:order-2"}`}>
-          <div data-cinema-image className="relative aspect-[16/10] rounded-[1.5rem] overflow-hidden bg-[#EFE8DD] group">
+          <div data-cinema-image data-cinema-depth className="relative aspect-[16/10] rounded-[1.5rem] overflow-hidden bg-[#EFE8DD] group">
             {event.image && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={event.image}
                 alt="Mesa posta e decoração de casamento — imagem ilustrativa"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="absolute inset-0 w-full h-full object-cover"
               />
             )}
             <div className="absolute top-6 left-6 bg-[#1A1715]/90 backdrop-blur-md px-4 py-2 text-white font-mono text-xs uppercase tracking-[0.25em]">
@@ -194,7 +194,7 @@ export function Events() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div data-cinema-sequence className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {scheduleItems.map((item, idx) => (
               <div key={idx} className="space-y-3 pt-4">
                 <span className="font-mono text-2xl font-light text-[#8C6D46] block">

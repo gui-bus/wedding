@@ -1,3 +1,4 @@
+import { CinematicTransition } from "@/components/wedding/CinematicTransition";
 import { Hero } from "@/components/wedding/Hero";
 import { Story } from "@/components/wedding/Story";
 import { Events } from "@/components/wedding/Events";
@@ -12,6 +13,7 @@ export default function HomePage() {
     <CinematicExperience>
       <Hero />
       <Story />
+      <CinematicTransition />
       <Events />
       <DressCode />
       <GiftList />

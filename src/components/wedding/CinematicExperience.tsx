@@ -21,15 +21,35 @@ export function CinematicExperience({ children }: { children: ReactNode }) {
           });
         });
         gsap.utils.toArray<HTMLElement>("section:not(#inicio) h2:not([data-cinema-words]), section:not(#inicio) h3, footer h2").forEach(heading => {
-          gsap.from(heading, {
-            y: 40, opacity: 0, duration: 1.15, ease: "power3.out",
+          gsap.fromTo(heading, { y: 55, opacity: 0, filter: "blur(5px)" }, {
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 1.3, ease: "power3.out",
             scrollTrigger: { trigger: heading, start: "top 93%", once: true },
+          });
+        });
+        gsap.utils.toArray<HTMLElement>("[data-cinema-depth]").forEach(frame => {
+          const image = frame.querySelector("img");
+          if (!image) return;
+          gsap.fromTo(image, { yPercent: -5, scale: 1.1 }, {
+            yPercent: 5, scale: 1.02, ease: "none",
+            scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: 1.2 },
+          });
+        });
+        gsap.utils.toArray<HTMLElement>("[data-cinema-sequence]").forEach(sequence => {
+          gsap.from(sequence.children, {
+            y: 36, opacity: 0, duration: 1.1, stagger: 0.13, ease: "power3.out",
+            scrollTrigger: { trigger: sequence, start: "top 90%", once: true },
           });
         });
         gsap.utils.toArray<HTMLElement>("[data-cinema-copy]").forEach(copy => {
           gsap.from(copy, {
             y: 24, opacity: 0, duration: 1.1, ease: "power2.out",
             scrollTrigger: { trigger: copy, start: "top 92%", once: true },
+          });
+        });
+        gsap.utils.toArray<HTMLElement>("[data-cinema-drift]").forEach((element, index) => {
+          gsap.fromTo(element.querySelector("p") ?? element, { y: index % 2 === 0 ? 18 : -18 }, {
+            y: index % 2 === 0 ? -18 : 18, ease: "none",
+            scrollTrigger: { trigger: element, start: "top bottom", end: "bottom top", scrub: 1.3 },
           });
         });
         gsap.utils.toArray<HTMLElement>("[data-cinema-image]").forEach(frame => {
