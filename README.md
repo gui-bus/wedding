@@ -8,10 +8,10 @@ npm run dev
 Validação: npx tsc --noEmit, npm run lint, npm run build.
 
 ## Conteúdo
-Configuração em src/config/wedding.config.ts. Paleta solicitada, história desde 2016 e somente duas fotografias locais inspecionadas, sem pessoas. Imagens de decoração são ilustrativas, não fotografias do Quintal e Cia. O traje, o cronograma da recepção, o estacionamento e o prazo de RSVP não foram informados e não são apresentados como fatos.
+Configuração em src/config/wedding.config.ts. Paleta solicitada, história desde 2016 e fotografias de alianças, flores, mesas, decoração e paisagens inspecionadas, sem pessoas. Imagens de decoração são ilustrativas, não fotografias do Quintal e Cia. O design foi restaurado diretamente dos componentes da referência. O fundo principal é #F1F1F1, o layout usa max-w-440 mx-auto (1760px) e as seções têm altura natural, sem altura mínima de viewport. O traje, o cronograma detalhado da recepção, o estacionamento e o prazo de RSVP não foram informados e não são apresentados como fatos.
 
 ## Presentes e cartão
-O catálogo importado está em src/config/gifts.json: 32 itens contendo apenas name, category e url. A origem informa 87 itens, mas só 32 foram enviados. Preços não foram importados. As fotos foram inspecionadas; quatro com pessoas ou mãos são substituídas por ícones na interface, preservando a URL original no JSON.
+O catálogo importado está em src/config/gifts.json: 32 itens contendo apenas name, category e url. A origem informa 87 itens, mas só 32 foram enviados. Preços não foram importados. As fotos foram inspecionadas; quatro com pessoas ou mãos são substituídas por uma fotografia ilustrativa de alianças na interface, preservando a URL original no JSON.
 Recomendação: criar um link de pagamento no Mercado Pago para cada presente, na conta de quem receberá o dinheiro. Depois de definir os valores, acrescentar price e creditCardUrl no mapeamento de gifts em src/config/wedding.config.ts para cada item. O catálogo bruto permanece com os três campos solicitados.
 Não adicionar tokens secretos no frontend. Conferir titular, valor, taxas e parcelamento em uma compra de teste antes de divulgar.
 Para cota livre, creditCard.defaultPaymentLink deve permitir que o convidado informe o valor. O site não altera o valor desse link.

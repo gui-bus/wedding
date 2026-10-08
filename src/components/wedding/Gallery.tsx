@@ -43,22 +43,22 @@ export function Gallery() {
   return (
     <section
       id="galeria"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#1A1715]"
     >
       <div className="w-full space-y-16 sm:space-y-20">
         {/* Cabeçalho Editorial */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#3D2501]/15 pb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#1A1715]/15 pb-8">
           <div className="space-y-3">
-            <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#80654E] block">
+            <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#8C6D46] block">
               [ 02 &bull; MEMÓRIAS &amp; DETALHES ]
             </span>
             <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95]">
-              Detalhes & Inspirações
+              Detalhes do Grande Dia
             </h2>
           </div>
 
-          <p className="text-sm sm:text-base text-[#80654E] font-light leading-relaxed">
-            Flores, luz e pequenos detalhes que inspiram a nossa celebração. Imagens ilustrativas.
+          <p className="text-sm sm:text-base text-[#73685B] font-light leading-relaxed">
+            Um moodboard visual de flores, alianças e cenários que inspiram o nosso grande dia. Imagens ilustrativas.
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export function Gallery() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6, delay: (index % 4) * 0.08 }}
               onClick={() => setSelectedPhotoIndex(index)}
-              className="break-inside-avoid mb-6 group cursor-pointer relative overflow-hidden bg-[#C7B79D] transition-all duration-500"
+              className="break-inside-avoid mb-6 group cursor-pointer relative overflow-hidden bg-[#EFE8DD] transition-all duration-500"
             >
               {/* Imagem com Aspect Ratio Variável */}
               <div className={`w-full overflow-hidden ${getPinterestAspect(index)} relative`}>
@@ -87,7 +87,7 @@ export function Gallery() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5 text-white">
                   {/* Topo do Pin: Badge Mono & Ícone */}
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md font-mono text-[9px] uppercase tracking-[0.25em] text-[#F5F5DA]">
+                    <span className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md font-mono text-[9px] uppercase tracking-[0.25em] text-[#F3E2CE]">
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
@@ -98,8 +98,8 @@ export function Gallery() {
 
                   {/* Base do Pin: Legenda Tipográfica */}
                   <div className="space-y-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#C7B79D] block">
-                      29 de maio &bull; 2027
+                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#C9A96E] block">
+                      29 DE MAIO &bull; 2027
                     </span>
                     <p className="font-serif text-lg sm:text-xl font-light leading-snug drop-shadow-xs">
                       {photo.caption}
@@ -119,7 +119,7 @@ export function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-[#3D2501]/95 backdrop-blur-xl select-none"
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-[#0D0A08]/95 backdrop-blur-xl select-none"
             onClick={() => setSelectedPhotoIndex(null)}
           >
             {/* Fechar */}
@@ -155,7 +155,7 @@ export function Gallery() {
                 className="max-h-[78vh] w-auto object-contain shadow-2xl"
               />
               <div className="flex items-center gap-6 text-white/80">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#C7B79D]">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#C9A96E]">
                   {String(selectedPhotoIndex + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")}
                 </span>
                 {gallery[selectedPhotoIndex].caption && (

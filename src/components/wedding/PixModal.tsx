@@ -17,7 +17,7 @@ export function PixModal({gift,customAmount,onClose}:{gift:GiftItem|null;customA
   const candidate=creditCard?.enabled ? (gift ? gift.creditCardUrl : creditCard.defaultPaymentLink) : undefined;
   const cardUrl=candidate && /^https:\/\/[^\s]+$/i.test(candidate) ? candidate : undefined;
   const payload=pix.key && amount>0 ? generatePixPayload({pixKey:pix.key,receiverName:pix.receiverName,city:pix.city,amount,description:(gift?.title ?? "Presente").slice(0,25)}) : "";
-  return <dialog ref={dialog} onCancel={onClose} onClick={e=>{if(e.target===e.currentTarget)onClose();}} className="m-auto w-[calc(100%-2rem)] max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-0 bg-[#F5F5DA] text-[#3D2501] backdrop:bg-black/70">
+  return <dialog ref={dialog} onCancel={onClose} onClick={e=>{if(e.target===e.currentTarget)onClose();}} className="m-auto w-[calc(100%-2rem)] max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl p-0 bg-[#F1F1F1] text-[#3D2501] backdrop:bg-black/70">
     <div className="p-6 sm:p-8 space-y-6">
       <div className="flex justify-between gap-4"><div><p className="text-xs tracking-widest uppercase text-[#5D613C]">Presentear os noivos</p><h3 className="font-serif text-3xl mt-2">{gift?.title ?? "Cota livre"}</h3><p className="font-serif text-3xl mt-2">{formatCurrency(amount)}</p></div><button onClick={onClose} aria-label="Fechar"><X/></button></div>
       <div className="grid grid-cols-2 gap-2" role="group" aria-label="Forma de pagamento">

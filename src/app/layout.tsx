@@ -38,8 +38,8 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${cormorant.variable} ${jakarta.variable} scroll-smooth`}
     >
-      <body className="font-sans antialiased bg-[#F5F5DA] text-[#3D2501] selection:bg-[#C7B79D] selection:text-[#3D2501] w-full overflow-x-hidden">
-        <div className="w-full relative bg-[#F5F5DA]">
+      <body className="font-sans antialiased bg-[#F1F1F1] text-[#3D2501] selection:bg-[#C7B79D] selection:text-[#3D2501] w-full overflow-x-hidden">
+        <div className="w-full max-w-440 mx-auto relative bg-[#F1F1F1]">
           {children}
         </div>
       </body>

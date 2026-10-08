@@ -165,7 +165,7 @@ export function RSVPSection() {
     return (
     <section
       id="rsvp"
-      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F5F5DA] text-[#3D2501]"
+      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
       <div className="w-full space-y-16 sm:space-y-20">
         {/* Cabeçalho Editorial */}

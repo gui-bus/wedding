@@ -11,9 +11,9 @@ export function Navbar() {
   const navLinks = [
     { name: "Início",          href: "#inicio" },
     { name: "Nossa História",  href: "#historia" },
-    { name: "Inspirações",         href: "#galeria" },
+    { name: "Galeria",         href: "#galeria" },
     { name: "Cerimônia",       href: "#eventos" },
-    { name: "Paleta",          href: "#dress-code" },
+    { name: "Trajes",          href: "#dress-code" },
     { name: "Presentes",       href: "#presentes" },
   ];
 
@@ -71,7 +71,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden mx-4 mt-3 bg-[#3D2501]/95 backdrop-blur-xl border border-[#C7B79D]/20 rounded-2xl p-6 shadow-2xl"
+            className="lg:hidden mx-4 mt-3 bg-[#141008]/95 backdrop-blur-xl border border-[#C9A96E]/20 rounded-2xl p-6 shadow-2xl"
           >
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -79,7 +79,7 @@ export function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-xs uppercase tracking-[0.25em] text-[#C7B79D] hover:text-[#F5F5DA] py-2 border-b border-[#C7B79D]/10 transition-colors"
+                  className="text-xs uppercase tracking-[0.25em] text-[#D5C6B4] hover:text-[#F0DEB4] py-2 border-b border-[#C9A96E]/10 transition-colors"
                 >
                   {link.name}
                 </a>
@@ -87,7 +87,7 @@ export function Navbar() {
               <a
                 href="#rsvp"
                 onClick={() => setMobileMenuOpen(false)}
-                className="inline-flex items-center justify-center text-xs uppercase tracking-[0.2em] font-medium px-6 py-3 rounded-full bg-[#C7B79D] text-[#3D2501] mt-2 hover:bg-[#F5F5DA] transition-all"
+                className="inline-flex items-center justify-center text-xs uppercase tracking-[0.2em] font-medium px-6 py-3 rounded-full bg-[#C9A96E] text-[#0D0A08] mt-2 hover:bg-[#E2C98A] transition-all"
               >
                 Confirmar Presença
               </a>

@@ -51,7 +51,7 @@ export function Hero() {
     <section
       ref={containerRef}
       id="inicio"
-      className="relative w-full overflow-hidden flex flex-col justify-between bg-[#3D2501] pt-28 sm:pt-36 pb-20 sm:pb-28 px-6 sm:px-12 lg:px-20 text-white"
+      className="relative w-full overflow-hidden flex flex-col justify-between bg-[#0D0A08] pt-28 sm:pt-36 pb-20 sm:pb-28 px-6 sm:px-12 lg:px-20 text-white"
     >
       {/* Background com parallax */}
       <motion.div
@@ -64,7 +64,7 @@ export function Hero() {
       />
 
       {/* Overlay multicamada escuro e refinado */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#3D2501]/90 via-[#3D2501]/60 to-[#3D2501]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#3D2501]/90 via-[#3D2501]/60 to-[#231500]" />
 
       {/* Navbar estática */}
       <Navbar />
@@ -85,7 +85,7 @@ export function Hero() {
 
         {/* Nomes dos Noivos em Escala Monumental */}
         <div ref={headlineRef} className="space-y-1 sm:space-y-2">
-          <h1 className="font-serif text-5xl sm:text-8xl md:text-9xl lg:text-[10.5rem] font-light tracking-tight leading-[0.88] select-none text-[#F5F5DA]">
+          <h1 className="font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[10.5rem] font-light tracking-tight leading-[0.88] select-none text-[#F5F5DA]">
             <span className="hero-title-part inline-block">{couple.partner1}</span>
             <span className="hero-title-part inline-block font-serif italic text-[#C7B79D] font-light mx-4 sm:mx-8">
               &amp;
@@ -125,7 +125,7 @@ export function Hero() {
         <div className="hero-meta-item flex flex-col sm:flex-row items-center justify-center gap-5 pt-4 w-full max-w-md">
           <a
             href="#rsvp"
-            className="w-full sm:w-auto flex-1 text-center py-4 px-8 text-xs font-mono uppercase tracking-[0.25em] font-medium bg-[#C7B79D] text-[#3D2501] hover:bg-[#F5F5DA] transition-colors duration-300 rounded-full"
+            className="w-full sm:w-auto flex-1 text-center py-4 px-8 text-xs font-mono uppercase tracking-[0.25em] font-medium bg-[#C7B79D] text-[#3D2501] hover:bg-[#F1F1F1] transition-colors duration-300 rounded-full"
           >
             Confirmar Presença
           </a>

@@ -12,7 +12,7 @@
 
 /* Fundo e Paleta Oficial: #C7B79D, #80654E, #3D2501, #5D613C, #F5F5DA, #F1F1F1 */
 .bg-wedding-warm {
-  background-color: #F5F5DA;
+  background-color: #F1F1F1;
 }
 
 .bg-wedding-sand {
@@ -68,7 +68,7 @@ html {
   width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F5DA;
+  background: #F1F1F1;
 }
 ::-webkit-scrollbar-thumb {
   background: #C7B79D;

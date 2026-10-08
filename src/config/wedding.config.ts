@@ -1,5 +1,14 @@
 import giftCatalog from "./gifts.json";
 import { WeddingConfig } from "@/types/wedding";
+const photosWithPeople = new Set([
+  "https://gift-media.lejour.com.br/9a917f53-1486-422c-af2d-8dfa2e2341ef.jpeg",
+  "https://gift-media.lejour.com.br/d2c33d6e-236a-4d2e-8b50-4dd859dfecd6.jpeg",
+  "https://gift-media.lejour.com.br/7b8c8352-cd9f-460d-8765-d0d4832bf9bb.jpeg",
+  "https://gift-media.lejour.com.br/sanduicheira-eletrica.png",
+]);
+function safeGiftImage(url: string) {
+  return photosWithPeople.has(url) ? "/detalhes/aliancas-florais.jpg" : url;
+}
 
 export const weddingConfig: WeddingConfig = {
   couple: {
@@ -23,19 +32,29 @@ export const weddingConfig: WeddingConfig = {
   },
 
   gallery: [
-    { id: "rings", url: "/casal/aliancas-que-selam-nossa-promessa.png", caption: "O símbolo de um novo capítulo", aspect: "wide" },
-    { id: "garden", url: "/casal/festa-de-casamento.png", caption: "Flores e luz para celebrar", aspect: "wide" },
+    { id: "1", url: "/detalhes/praia.jpg", caption: "Luz suave à beira-mar", aspect: "wide" },
+    { id: "2", url: "/casal/cerimonia-religiosa.png", caption: "Flores e mesa posta", aspect: "tall" },
+    { id: "3", url: "/casal/aliancas-que-selam-nossa-promessa.png", caption: "Alianças para o nosso para sempre", aspect: "tall" },
+    { id: "4", url: "/detalhes/mesa.jpg", caption: "Detalhes de uma celebração", aspect: "wide" },
+    { id: "5", url: "/detalhes/flores.jpg", caption: "Flores e delicadeza", aspect: "square" },
+    { id: "6", url: "/detalhes/aliancas-florais.jpg", caption: "Símbolos do nosso amor", aspect: "square" },
+    { id: "7", url: "/casal/festa-de-casamento.png", caption: "Um jardim para celebrar", aspect: "tall" },
+    { id: "8", url: "/detalhes/paisagem.jpg", caption: "A beleza dos novos caminhos", aspect: "wide" },
+    { id: "9", url: "/detalhes/cafe.jpg", caption: "Pequenos prazeres a dois", aspect: "square" },
+    { id: "10", url: "/detalhes/drinks.jpg", caption: "Cores para a celebração", aspect: "square" },
+    { id: "11", url: "/detalhes/brinde.jpg", caption: "Um brinde ao nosso sim", aspect: "wide" },
+    { id: "12", url: "/casal/festa-de-casamento.png", caption: "Flores e luz para o grande dia", aspect: "tall" },
   ],
   ceremony: {
-    title: "Cerimônia & Recepção", subtitle: "Nosso grande ‘sim’", time: "11h30",
+    title: "Cerimônia", subtitle: "Nosso grande ‘sim’", time: "11h30",
     placeName: "Quintal e Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
     cityState: "São José dos Campos - SP",
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Quintal+e+Cia+Rua+dos+Marceneiros+210+Jardim+Valparaiba+Sao+Jose+dos+Campos",
     wazeUrl: "https://waze.com/ul?q=Rua%20dos%20Marceneiros%20210%20Sao%20Jose%20dos%20Campos&navigate=yes",
-    tips: "A cerimônia e a recepção acontecerão no mesmo local.",
+    image: "/casal/cerimonia-religiosa.png", tips: "A cerimônia e a recepção acontecerão no mesmo local.",
   },
   party: {
-    title: "Recepção", subtitle: "Após a cerimônia", time: "Após a cerimônia",
+    image: "/casal/festa-de-casamento.png", title: "Recepção", subtitle: "Após a cerimônia", time: "Após a cerimônia",
     placeName: "Quintal e Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
     cityState: "São José dos Campos - SP",
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Quintal+e+Cia+Rua+dos+Marceneiros+210",
@@ -58,7 +77,7 @@ export const weddingConfig: WeddingConfig = {
 
   gifts: giftCatalog.map((item, index) => ({
     id: String(index + 1), title: item.name, category: item.category,
-    categoryLabel: item.category, image: item.url,
+    categoryLabel: item.category, image: safeGiftImage(item.url),
   })),
   pix: {
     key: "",

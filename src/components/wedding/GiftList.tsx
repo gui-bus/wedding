@@ -1,48 +1,218 @@
 "use client";
-import { useMemo, useState } from "react";
+
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import { weddingConfig } from "@/config/wedding.config";
-import { PixModal } from "./PixModal";
-import { GiftItem } from "@/types/wedding";
 import { formatCurrency } from "@/lib/utils";
-import { Search, Gift } from "lucide-react";
-const photosWithPeople = new Set([
-  "https://gift-media.lejour.com.br/9a917f53-1486-422c-af2d-8dfa2e2341ef.jpeg",
-  "https://gift-media.lejour.com.br/d2c33d6e-236a-4d2e-8b50-4dd859dfecd6.jpeg",
-  "https://gift-media.lejour.com.br/7b8c8352-cd9f-460d-8765-d0d4832bf9bb.jpeg",
-  "https://gift-media.lejour.com.br/sanduicheira-eletrica.png",
-]);
-export function GiftList(){
-  const {gifts}=weddingConfig;
-  const [category,setCategory]=useState("Todos");
-  const [search,setSearch]=useState("");
-  const [selected,setSelected]=useState<GiftItem|null>(null);
-  const categories=["Todos",...new Set(gifts.map(g=>g.category))];
-  const normalize=(s:string)=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
-  const filtered=useMemo(()=>gifts.filter(g=>(category==="Todos"||g.category===category)&&normalize(g.title).includes(normalize(search))),[gifts,category,search]);
-  return <section id="presentes" className="py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F5F5DA] text-[#3D2501]">
-    <div className="flex flex-col lg:flex-row justify-between gap-8 border-b border-[#C7B79D] pb-8 mb-12">
-      <div><p className="font-mono text-xs tracking-[0.3em] text-[#5D613C] mb-4">[ 05 • LISTA DE PRESENTES ]</p><h2 className="font-serif text-5xl sm:text-7xl font-light">Carinho para o novo capítulo.</h2></div>
-      <p className="max-w-md text-[#80654E] leading-relaxed self-end">Sua presença é o nosso maior presente. Aqui estão os itens que escolhemos para a nossa vida a dois. Em breve, disponibilizaremos os valores e as opções de pagamento.</p>
-    </div>
-    <div className="flex flex-col lg:flex-row justify-between gap-6 mb-12">
-      <div className="flex flex-wrap gap-3">{categories.map(c=><button key={c} aria-pressed={category===c} onClick={()=>setCategory(c)} className={"rounded-full px-4 py-2 border border-[#C7B79D] text-sm "+(category===c?"bg-[#5D613C] text-[#F5F5DA]":"text-[#80654E]")}>{c}</button>)}</div>
-      <label className="flex items-center gap-2 border-b border-[#80654E] pb-2"><Search size={18}/><input aria-label="Buscar presentes" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Buscar presentes..." className="bg-transparent outline-none w-full lg:w-48"/></label>
-    </div>
-    <p className="text-xs text-[#80654E] mb-6" role="status">{filtered.length} presentes</p>
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 sm:gap-12">
-      {filtered.map(g=><article key={g.id} className="space-y-4">
-        <div className="aspect-[4/3] bg-[#F1F1F1] overflow-hidden flex justify-center items-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          {photosWithPeople.has(g.image) ? <Gift size={64} strokeWidth={1} className="text-[#5D613C]" aria-label="Ilustração de presente"/> : <img src={g.image} alt={g.title} loading="lazy" className="w-full h-full object-contain p-4" onError={e=>{e.currentTarget.style.display="none";e.currentTarget.parentElement?.setAttribute("aria-label",g.title+" — imagem indisponível");}}/>}
+import { GiftItem } from "@/types/wedding";
+import { PixModal } from "./PixModal";
+import { Search, ArrowUpRight } from "lucide-react";
+
+export function GiftList() {
+  const { gifts } = weddingConfig;
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("todos");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedGift, setSelectedGift] = useState<GiftItem | null>(null);
+  const [customAmountModal, setCustomAmountModal] = useState<boolean>(false);
+  const [customValue, setCustomValue] = useState<string>("");
+
+  const categories = [
+    { id: "todos", label: "Todos os Presentes" },
+    ...Array.from(new Set(gifts.map(gift => gift.category))).map(category => ({ id: category, label: category })),
+  ];
+
+  const filteredGifts = useMemo(() => {
+    return gifts.filter((item) => {
+      const matchesCategory =
+        selectedCategory === "todos" || item.category === selectedCategory;
+      const matchesSearch =
+        item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (item.description ?? "").toLowerCase().includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [gifts, selectedCategory, searchTerm]);
+
+  return (
+    <section
+      id="presentes"
+      className="w-full py-20 sm:py-32 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+    >
+      <div className="w-full space-y-20 sm:space-y-24">
+        {/* Cabeçalho Editorial */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-[#3D2501]/15 pb-8">
+          <div className="space-y-3">
+            <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
+              [ 05 &bull; LISTA DE PRESENTES ]
+            </span>
+            <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
+              Mimos &amp; Cotas
+            </h2>
+          </div>
+
+          <p className="text-sm sm:text-base text-[#80654E] font-light leading-relaxed max-w-xl">
+            Sua presença é o nosso maior presente. Se desejar nos presentear, criamos cotas
+            simbólicas. As opções de <strong>PIX</strong> e <strong>cartão de crédito</strong> estarão disponíveis em breve.
+          </p>
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-[#5D613C]">{g.categoryLabel}</p>
-        <h3 className="font-serif text-2xl leading-snug">{g.title}</h3>
-        <div className="border-t border-[#C7B79D] pt-3">
-          {g.price && g.price>0 ? <button onClick={()=>setSelected(g)} className="text-sm text-[#5D613C]">Presentear • {formatCurrency(g.price)}</button> : <p className="text-xs text-[#80654E]">Disponível para presentear em breve</p>}
+
+        {/* Filtros e Busca em Barra Linear */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-[#3D2501]/15 pb-6">
+          {/* Categorias em Texto com Underline */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative pb-1 ${
+                    isActive
+                      ? "text-[#3D2501] font-semibold"
+                      : "text-[#80654E] hover:text-[#3D2501]"
+                  }`}
+                >
+                  {cat.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="giftCatUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#5D613C]"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Campo de Busca Minimalista */}
+          <div className="relative w-full md:w-64 border-b border-[#3D2501]/20 focus-within:border-[#5D613C] transition-colors pb-1">
+            <Search className="w-3.5 h-3.5 text-[#80654E] absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Buscar presentes..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pr-6 text-xs font-mono uppercase bg-transparent text-[#3D2501] placeholder-[#80654E]/70 focus:outline-none"
+            />
+          </div>
         </div>
-      </article>)}
-    </div>
-    {filtered.length===0 && <p className="py-12 text-center text-[#80654E]">Nenhum presente encontrado.</p>}
-    {selected && <PixModal gift={selected} onClose={()=>setSelected(null)}/>}
-  </section>;
+
+        {/* Cota Aberta Personalizada (Linha Minimalista) */}
+        <div className="py-8 border-b border-[#3D2501]/15 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#5D613C] block font-semibold">
+              COTA LIVRE &bull; VALOR PERSONALIZADO
+            </span>
+            <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#3D2501]">
+              Deseja presentear com outro valor?
+            </h3>
+            <p className="text-xs sm:text-sm text-[#80654E] font-light">
+              Escolha uma quantia livre de sua preferência para contribuir via PIX ou Cartão de Crédito.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="flex items-center border-b border-[#3D2501]/30 focus-within:border-[#5D613C] pb-1">
+              <span className="font-mono text-sm text-[#80654E] mr-2">R$</span>
+              <input
+                type="number"
+                min="10" aria-label="Valor do presente em reais"
+                step="0.01"
+                placeholder="150"
+                value={customValue}
+                onChange={(e) => setCustomValue(e.target.value)}
+                className="w-24 bg-transparent font-mono text-lg text-[#3D2501] focus:outline-none"
+              />
+            </div>
+            <button
+              onClick={() => {
+                setSelectedGift(null);
+                if (Number.isFinite(Number(customValue)) && Number(customValue) >= 10) setCustomAmountModal(true);
+              }}
+              disabled={!Number.isFinite(Number(customValue)) || Number(customValue) < 10} className="disabled:opacity-40 disabled:cursor-not-allowed px-6 py-2.5 text-xs font-mono uppercase tracking-[0.2em] bg-[#3D2501] text-[#F5F5DA] hover:bg-[#80654E] transition-colors rounded-full font-medium"
+            >
+              Presentear
+            </button>
+          </div>
+        </div>
+
+        {/* Catálogo de Presentes (Sem Cards!) */}
+        {filteredGifts.length === 0 ? (
+          <div className="py-20 text-center border-b border-[#3D2501]/15">
+            <p className="font-serif text-xl font-light text-[#80654E]">
+              Nenhum item encontrado para esta busca.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12">
+            {filteredGifts.map((gift, index) => (
+              <motion.div
+                key={gift.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: (index % 4) * 0.1 }}
+                className="group flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  {/* Foto com Zoom Suave */}
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EFE8DD] border border-[#3D2501]/10">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={gift.image}
+                      alt={gift.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                  </div>
+
+                  {/* Categoria & Título */}
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#5D613C] block font-semibold">
+                      {gift.categoryLabel}
+                    </span>
+                    <h4 className="font-serif text-xl sm:text-2xl font-light text-[#3D2501] line-clamp-1 group-hover:text-[#5D613C] transition-colors">
+                      {gift.title}
+                    </h4>
+                    <p className="text-xs text-[#80654E] font-light line-clamp-2 leading-relaxed">
+                      {gift.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Preço e Botão */}
+                <div className="pt-3 border-t border-[#3D2501]/15 flex items-baseline justify-between">
+                  <span className="font-serif text-2xl font-light text-[#3D2501]">
+                    {gift.price ? formatCurrency(gift.price) : "Em breve"}
+                  </span>
+
+                  <button
+                    onClick={() => {
+                      setCustomAmountModal(false);
+                      if (gift.price) setSelectedGift(gift);
+                    }}
+                    disabled={!gift.price} className="disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.15em] text-[#5D613C] hover:text-[#3D2501] font-semibold transition-colors group/btn"
+                  >
+                    <span>Presentear</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {/* Modal PIX */}
+        {(selectedGift || customAmountModal) && (
+          <PixModal
+            gift={selectedGift}
+            customAmount={customAmountModal ? Number(customValue) : undefined}
+            onClose={() => {
+              setSelectedGift(null);
+              setCustomAmountModal(false);
+            }}
+          />
+        )}
+      </div>
+    </section>
+  );
 }
