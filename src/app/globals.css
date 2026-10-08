@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Fundo e Paleta Oficial: #C7B79D, #80654E, #3D2501, #5D613C, #F5F5DA, #F1F1F1 */
+.bg-wedding-warm {
+  background-color: #F5F5DA;
+}
+
+.bg-wedding-sand {
+  background-color: #C7B79D;
+}
+
+.bg-wedding-espresso {
+  background-color: #3D2501;
+}
+
+.bg-wedding-olive {
+  background-color: #5D613C;
+}
+
+.bg-wedding-taupe {
+  background-color: #80654E;
+}
+
+.bg-wedding-neutral {
+  background-color: #F1F1F1;
+}
+
+/* Molduras em Arco Arquitetônico Romântico */
+.arch-frame {
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+/* Efeito Papelaria Fina / Stationery */
+.stationery-card {
+  background: #F1F1F1;
+  box-shadow: 0 20px 40px -15px rgba(61, 37, 1, 0.08), 0 0 1px 1px rgba(199, 183, 157, 0.25);
+}
+
+/* Degradê Dourado / Champagne Suave */
+.text-champagne {
+  background: linear-gradient(135deg, #80654E 0%, #C7B79D 50%, #3D2501 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Suavização de Rolagem e Fontes */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar delicada */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F5DA;
+}
+::-webkit-scrollbar-thumb {
+  background: #C7B79D;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #80654E;
+}
+
+:focus-visible { outline: 2px solid #5D613C; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
