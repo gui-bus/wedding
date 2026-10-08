@@ -32,7 +32,7 @@ export function StoryEnvelope() {
         return;
       }
 
-      gsap.set(story, { paddingTop: 32, paddingBottom: 32 });
+      gsap.set(story, { paddingTop: 32, paddingBottom: 32, display: "flex", flexDirection: "column", justifyContent: "center" });
       gsap.set("[data-story-panels]", { gap: 0 });
       gsap.set(panels, { gridArea: "1 / 1", opacity: 0, y: 25 });
       gsap.set(panels[0], { opacity: 1, y: 0 });
@@ -45,6 +45,8 @@ export function StoryEnvelope() {
       const initialBottomY = () => window.innerHeight - 2 * edge() - story.getBoundingClientRect().height;
       const closingDistance = () => (window.innerHeight - edge()) / 2;
       const updatePaths = () => {
+        // Center the story within the actual opening between the two animated edges.
+        gsap.set(story, { height: Math.max(window.innerHeight - 2 * edge(), content.scrollHeight + 64) });
         const h = edge() / hero.getBoundingClientRect().height;
         const b = edge() / bottomGroup.getBoundingClientRect().height;
         const y = (value: number) => 1 - h + h * value;
