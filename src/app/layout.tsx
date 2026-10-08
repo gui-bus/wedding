@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import { weddingConfig } from "@/config/wedding.config";
+import { PageCurtainLoader } from "@/components/wedding/PageCurtainLoader";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -39,6 +40,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${jakarta.variable} scroll-smooth`}
     >
       <body className="font-sans antialiased bg-[#F1F1F1] text-[#3D2501] selection:bg-[#C7B79D] selection:text-[#3D2501] w-full overflow-x-hidden">
+        <PageCurtainLoader />
         <div className="w-full max-w-440 mx-auto relative bg-[#F1F1F1]">
           {children}
         </div>

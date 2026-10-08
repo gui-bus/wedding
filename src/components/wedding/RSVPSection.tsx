@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import confetti from "canvas-confetti";
+import { WeddingOrnaments } from "./WeddingOrnaments";
 import { weddingConfig } from "@/config/wedding.config";
 import {
   CheckCircle2,
@@ -165,29 +166,21 @@ export function RSVPSection() {
     return (
     <section
       id="rsvp"
-      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="cinematic-section relative overflow-hidden w-full py-16 sm:py-24 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
-      <div className="w-full space-y-16 sm:space-y-20">
-        {/* Cabeçalho Editorial */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8">
-          <div className="space-y-3">
-            <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
-              [ 05 &bull; PRESENÇA &amp; CONVITE ]
-            </span>
-            <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
-              Confirmação de Presença
-            </h2>
-          </div>
-
-          <p className="text-sm text-[#80654E] font-light leading-relaxed">
-            {weddingConfig.rsvp.deadlineDate ? "Favor confirmar até " + weddingConfig.rsvp.deadlineDate + "." : "Em breve, disponibilizaremos a confirmação de presença."}
-          </p>
+      <WeddingOrnaments variant="vows" tone="paper" />
+      <div className="relative z-10 max-w-5xl mx-auto space-y-10 sm:space-y-14">
+        <div className="text-center max-w-3xl mx-auto space-y-5">
+          <p data-cinema-copy className="cinema-eyebrow text-[#5D613C]">Esperamos você</p>
+          <h2 className="font-serif text-5xl sm:text-7xl font-light tracking-[-0.04em] leading-[1.08]">Confirmação de <span className="italic text-[#5D613C]">presença</span></h2>
+          <p data-cinema-copy className="font-serif italic text-xl sm:text-2xl text-[#80654E]">Sua presença faz parte da nossa história.</p>
+          <p className="text-sm text-[#80654E] font-light leading-relaxed">{weddingConfig.rsvp.deadlineDate ? "Favor confirmar até " + weddingConfig.rsvp.deadlineDate + "." : "Em breve, disponibilizaremos a confirmação de presença."}</p>
         </div>
 
-        {/* Formulário Editorial Direto na Página (Sem Card!) */}
-        <div>
+        {/* Formulário de confirmação */}
+        <div className="max-w-4xl mx-auto rounded-[2rem] sm:rounded-[3rem] bg-white/55 p-6 sm:p-10 lg:p-12 ring-1 ring-[#C7B79D]/35 shadow-[0_22px_65px_-40px_#3D250130]">
           {isSuccess && submittedData ? (
-            <div className="py-12 space-y-8 text-center border-t border-[#3D2501]/15">
+            <div className="py-6 space-y-8 text-center">
               <div className="w-16 h-16 bg-[#3D2501] text-[#F5F5DA] rounded-full flex items-center justify-center mx-auto shadow-md">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
@@ -245,7 +238,7 @@ export function RSVPSection() {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10"><fieldset disabled={process.env.NEXT_PUBLIC_RSVP_ENABLED !== "true" || isSubmitting} className="space-y-10 disabled:opacity-60">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10"><fieldset disabled={process.env.NEXT_PUBLIC_RSVP_ENABLED !== "true" || isSubmitting} className="space-y-10 disabled:opacity-75">
               {errorMessage && (
                 <div className="p-4 bg-rose-50 border-l-2 border-rose-600 text-rose-800 text-xs flex items-start gap-3">
                   <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
@@ -255,7 +248,7 @@ export function RSVPSection() {
 
               {/* Nome */}
               <div className="space-y-2">
-                <label className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
                   Seu Nome Completo *
                 </label>
                 <input
@@ -273,7 +266,7 @@ export function RSVPSection() {
 
               {/* WhatsApp */}
               <div className="space-y-2">
-                <label className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
                   Seu Telefone / WhatsApp *
                 </label>
                 <input
@@ -291,7 +284,7 @@ export function RSVPSection() {
 
               {/* Comparecimento */}
               <div className="space-y-4 pt-2">
-                <label className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
                   Você comparecerá ao casamento? *
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -424,14 +417,14 @@ export function RSVPSection() {
 
                   {/* Restrições Alimentares */}
                   <div className="space-y-2 pt-2">
-                    <label className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
+                    <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
                       Restrições Alimentares (Opcional)
                     </label>
                     <input
                       type="text"
                       placeholder="Ex: Vegetariano, intolerância a glúten ou lactose..."
                       {...register("dietaryRestrictions")}
-                      className="w-full py-2.5 bg-transparent border-b border-[#3D2501]/20 focus:border-[#5D613C] text-base font-serif text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none"
+                      className="w-full px-4 py-3.5 rounded-2xl bg-[#F1F1F1]/80 border border-[#C7B79D]/30 focus:border-[#5D613C] text-base font-sans text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -439,14 +432,14 @@ export function RSVPSection() {
 
               {/* Mensagem */}
               <div className="space-y-2">
-                <label className="block text-[11px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
+                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
                   Recado aos Noivos (Opcional)
                 </label>
                 <textarea
                   rows={2}
                   placeholder="Deixe uma mensagem de carinho..."
                   {...register("message")}
-                  className="w-full py-2.5 bg-transparent border-b border-[#3D2501]/20 focus:border-[#5D613C] text-base font-serif text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none resize-none"
+                  className="w-full px-4 py-3.5 rounded-2xl bg-[#F1F1F1]/80 border border-[#C7B79D]/30 focus:border-[#5D613C] text-base font-sans text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none resize-none"
                 />
               </div>
 

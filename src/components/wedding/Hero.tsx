@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import Image from 'next/image';
-import gsap from "gsap";
+
 import { weddingConfig } from "@/config/wedding.config";
 import { formatDateBR } from "@/lib/utils";
+import { WeddingOrnaments } from "./WeddingOrnaments";
 import { Countdown } from "./Countdown";
 
 import { ArrowDown } from "lucide-react";
@@ -16,30 +17,29 @@ export function Hero() {
   const reducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end start"] });
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.1]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 65]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
-  useEffect(() => {
-    const media = gsap.matchMedia();
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      const context = gsap.context(() => {
-        const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-        timeline.from(".hero-intro", { y: 16, opacity: 0, duration: 0.9 }, 0.15)
-          .from(".hero-logo", { y: 30, scale: 0.94, opacity: 0, duration: 1.5 }, 0.3)
-          .from(".hero-detail", { y: 22, opacity: 0, duration: 1, stagger: 0.1 }, 0.85);
-      }, section);
-      return () => context.revert();
-    });
-    return () => media.revert();
-  }, []);
-  return <section ref={section} id="inicio" className="relative w-full overflow-hidden bg-[#3D2501] px-6 sm:px-12 lg:px-20 pt-16 sm:pt-24 pb-24 sm:pb-36 text-[#F1F1F1]">
-    <motion.div style={{ backgroundImage: `url('${couple.coverImage}')`, ...(reducedMotion ? {} : { y: imageY, scale: imageScale }) }} className="absolute inset-0 bg-cover bg-center origin-center" />
+  return <section ref={section} id="inicio" className="relative w-full overflow-hidden bg-[#17130D] px-6 sm:px-12 lg:px-20 pt-8 sm:pt-12 pb-24 sm:pb-36 text-[#F1F1F1]">
+    <motion.div style={reducedMotion ? undefined : { y: imageY, scale: imageScale }} className="absolute inset-x-0 -inset-y-[20%] origin-center">
+      <Image
+        src={couple.coverImage}
+        alt=""
+        fill
+        preload
+        sizes="(min-width: 1760px) 1760px, 100vw"
+        placeholder="blur"
+        blurDataURL="data:image/jpeg;base64,/9j/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAAOABgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAME/8QAIRAAAgEEAgIDAAAAAAAAAAAAAQIDABESMQQhFDIiYYH/xAAXAQADAQAAAAAAAAAAAAAAAAABAgME/8QAGBEBAQEBAQAAAAAAAAAAAAAAAQAhERL/2gAMAwEAAhEDEQA/AMUaRzx4BMJCb99U8VoyoVt9kfeqnAUKsJGfJ7XxAAtoVpESB7ZP7a6teszlTzRkaPjXLSZMygADQpU+THEyJ8pDgfU2AP7SmDIJy//Z"
+        className="object-cover object-center"
+      />
+    </motion.div>
     <div className="absolute inset-0 bg-gradient-to-b from-[#17130D]/80 via-[#17130D]/70 to-[#17130D]/90" />
 
+    <WeddingOrnaments progress={scrollYProgress} variant="hearts" tone="photo" />
     <motion.div style={reducedMotion ? undefined : { y: contentY, opacity }} className="relative z-10 text-center flex flex-col items-center gap-9 sm:gap-12 pb-10 sm:pb-14">
       <p className="hero-intro cinema-eyebrow text-white">Uma história de amor <span className="mx-3">·</span> 2027</p>
       <h1 className="hero-logo w-full max-w-2xl mx-auto">
-        <Image src="/utils/logo_white.svg" alt={`${couple.partner1} e ${couple.partner2}`} width={1560} height={627} priority className="w-full h-auto" />
+        <Image src="/utils/logo_white.svg" alt={`${couple.partner1} e ${couple.partner2}`} width={1560} height={627} preload className="w-full h-auto" />
       </h1>
       <p className="hero-detail whitespace-pre-line font-serif italic text-xl sm:text-3xl font-light leading-relaxed max-w-3xl text-white">{couple.headline}</p>
       <div className="hero-detail flex flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-4 text-[10px] sm:text-xs tracking-[0.22em] uppercase text-white">
@@ -62,6 +62,6 @@ export function Hero() {
         </clipPath>
       </defs>
     </svg>
-    <div aria-hidden="true" className="absolute -bottom-px inset-x-0 h-16 sm:h-24 lg:h-28 bg-[#F1F1F1] pointer-events-none z-20" style={{ clipPath: "url(#hero-inverted-heart)" }} />
+    <div data-envelope-edge aria-hidden="true" className="absolute -bottom-px inset-x-0 h-16 sm:h-24 lg:h-28 bg-[#F1F1F1] pointer-events-none z-20" style={{ clipPath: "url(#hero-inverted-heart)" }} />
   </section>;
 }

@@ -47,7 +47,7 @@ export const weddingConfig: WeddingConfig = {
   ],
   ceremony: {
     title: "Cerimônia", subtitle: "Nosso grande ‘sim’", time: "11h30",
-    placeName: "Quintal e Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
+    placeName: "Quintal & Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
     cityState: "São José dos Campos - SP",
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Quintal+e+Cia+Rua+dos+Marceneiros+210+Jardim+Valparaiba+Sao+Jose+dos+Campos",
     wazeUrl: "https://waze.com/ul?q=Rua%20dos%20Marceneiros%20210%20Sao%20Jose%20dos%20Campos&navigate=yes",
@@ -55,7 +55,7 @@ export const weddingConfig: WeddingConfig = {
   },
   party: {
     image: "/casal/festa-de-casamento.png", title: "Recepção", subtitle: "Após a cerimônia", time: "Após a cerimônia",
-    placeName: "Quintal e Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
+    placeName: "Quintal & Cia", address: "Rua dos Marceneiros, 210 - Jardim Valparaíba",
     cityState: "São José dos Campos - SP",
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Quintal+e+Cia+Rua+dos+Marceneiros+210",
   },

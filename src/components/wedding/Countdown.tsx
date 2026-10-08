@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+
 
 interface CountdownProps {
   targetDateISO: string;
@@ -46,7 +46,7 @@ export function Countdown({ targetDateISO }: CountdownProps) {
     return () => { clearTimeout(initialTick); clearInterval(interval); };
   }, [targetDateISO]);
 
-  if (!mounted) return null;
+
 
   if (timeLeft.isPast) {
     return (
@@ -64,18 +64,13 @@ export function Countdown({ targetDateISO }: CountdownProps) {
   ];
 
   return (
-    <div className="inline-flex items-baseline justify-center gap-4 sm:gap-8 md:gap-12 select-none">
+    <div aria-busy={!mounted} className="inline-flex items-baseline justify-center gap-4 sm:gap-8 md:gap-12 select-none">
       {units.map((unit, index) => (
         <div key={unit.label} className="flex items-baseline gap-4 sm:gap-8 md:gap-12">
           <div className="flex flex-col items-center">
-            <motion.span
-              key={unit.value}
-              initial={{ opacity: 0.7, y: 2 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-white tracking-tight tabular-nums"
-            >
-              {unit.value.toString().padStart(2, "0")}
-            </motion.span>
+            <span className={`inline-block text-center font-serif text-4xl sm:text-5xl md:text-6xl font-light text-white tracking-tight tabular-nums ${index === 0 ? "w-[3ch]" : "w-[2ch]"}`}>
+              {mounted ? unit.value.toString().padStart(2, "0") : index === 0 ? "---" : "--"}
+            </span>
             <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] text-white uppercase mt-1">
               {unit.label}
             </span>

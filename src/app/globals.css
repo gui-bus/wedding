@@ -111,20 +111,6 @@ html {
   .cinema-button:hover { transform: none; }
 }
 
-.cinema-glow {
-  background: radial-gradient(ellipse at 20% 35%, #C7B79D33, transparent 55%),
-              radial-gradient(ellipse at 85% 85%, #3D250133, transparent 55%);
-}
-.cinema-orbit {
-  position: absolute;
-  width: 26rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid #C7B79D1F;
-  pointer-events: none;
-}
-.cinema-orbit-one { top: -12rem; right: -8rem; }
-.cinema-orbit-two { bottom: -17rem; left: -8rem; width: 36rem; }
 .cinema-footer { background-image: radial-gradient(ellipse at 50% 100%, #C7B79D26, transparent 65%); }
 .cinema-gift > div:first-child > div:first-child {
   transition: box-shadow .6s, border-color .6s;
@@ -152,4 +138,18 @@ html {
   .cinema-color:hover > div:first-child,
   .cinematic-section a.rounded-full:hover,
   .cinematic-section button.rounded-full:not(:disabled):hover { transform: none; }
+}
+
+/* Open the invitation with the same two-panel curtain as the reference site. */
+html { scrollbar-gutter: stable; }
+.wedding-loader-left, .wedding-loader-right {
+  transition: transform 850ms cubic-bezier(.76, 0, .24, 1);
+}
+.wedding-loader-logo { transition: opacity 500ms, transform 500ms; }
+.wedding-loader-opening .wedding-loader-left { transform: translateX(-100%); }
+.wedding-loader-opening .wedding-loader-right { transform: translateX(100%); }
+.wedding-loader-opening .wedding-loader-logo { opacity: 0; transform: scale(.95); }
+@media (prefers-reduced-motion: reduce) {
+  .wedding-loader-opening { opacity: 0; }
+  .wedding-loader-left, .wedding-loader-right, .wedding-loader-logo { transition: none; }
 }

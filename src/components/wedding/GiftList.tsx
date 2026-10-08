@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import { WeddingOrnaments } from "./WeddingOrnaments";
 import { weddingConfig } from "@/config/wedding.config";
 import { formatCurrency } from "@/lib/utils";
 import { GiftItem } from "@/types/wedding";
@@ -39,64 +40,50 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
   return (
     <section
       id="presentes"
-      className="cinematic-section w-full py-24 sm:py-36 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="cinematic-section relative overflow-hidden w-full py-16 sm:py-24 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
     >
-      <div className="w-full space-y-20 sm:space-y-24">
-        {/* Cabeçalho Editorial */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8">
-          <div className="space-y-3">
-            <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-[#5D613C] block font-semibold">
-              [ 04 &bull; LISTA DE PRESENTES ]
-            </span>
-            <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-light tracking-tight leading-[0.95] text-[#3D2501]">
-              Mimos &amp; Cotas
-            </h2>
-          </div>
-
-          <p className="text-sm sm:text-base text-[#80654E] font-light leading-relaxed max-w-xl">
-            Sua presença é o nosso maior presente. Se desejar nos presentear, criamos cotas
-            simbólicas. As opções de <strong>PIX</strong> e <strong>cartão de crédito</strong> estarão disponíveis em breve.
-          </p>
+      <WeddingOrnaments variant="hearts" tone="paper" />
+      <div className="relative z-10 max-w-7xl mx-auto space-y-12 sm:space-y-16">
+        <div className="text-center max-w-3xl mx-auto space-y-5">
+          {!preview && <Link href="/" className="inline-flex text-xs text-[#80654E] hover:text-[#3D2501] transition-colors">← Voltar ao início</Link>}
+          <p data-cinema-copy className="cinema-eyebrow text-[#5D613C]">Um gesto de carinho</p>
+          <h2 className="font-serif text-5xl sm:text-7xl font-light tracking-[-0.04em] leading-[1.08]">Lista de <span className="italic text-[#5D613C]">presentes</span></h2>
+          <p data-cinema-copy className="font-serif italic text-xl sm:text-2xl text-[#80654E]">Sua presença é o nosso maior presente.</p>
+          <p data-cinema-copy className="text-sm sm:text-base text-[#80654E] font-light leading-[1.8] max-w-2xl mx-auto">Para quem desejar nos presentear, preparamos esta lista com carinho. PIX e cartão de crédito estarão disponíveis em breve.</p>
         </div>
 
         {!preview && <>
         {/* Filtros e Busca em Barra Linear */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6">
           {/* Categorias em Texto com Underline */}
-          <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.id;
               return (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`text-xs font-mono uppercase tracking-[0.2em] transition-all relative pb-1 ${
+                  className={`text-xs px-4 py-2.5 rounded-full transition-colors relative ${
                     isActive
-                      ? "text-[#3D2501] font-semibold"
-                      : "text-[#80654E] hover:text-[#3D2501]"
+                      ? "bg-[#5D613C] text-white font-medium"
+                      : "bg-[#C7B79D]/15 text-[#80654E] hover:bg-[#C7B79D]/30"
                   }`}
                 >
                   {cat.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="giftCatUnderline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#5D613C]"
-                    />
-                  )}
                 </button>
               );
             })}
           </div>
 
           {/* Campo de Busca Minimalista */}
-          <div className="relative w-full md:w-64 border-b border-[#3D2501]/20 focus-within:border-[#5D613C] transition-colors pb-1">
-            <Search className="w-3.5 h-3.5 text-[#80654E] absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="relative w-full md:w-64 bg-white/70 rounded-full px-4 py-3 ring-1 ring-[#3D2501]/10 focus-within:ring-[#5D613C] transition-colors">
+            <Search className="w-3.5 h-3.5 text-[#80654E] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               placeholder="Buscar presentes..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pr-6 text-xs font-mono uppercase bg-transparent text-[#3D2501] placeholder-[#80654E]/70 focus:outline-none"
+              className="w-full pr-6 text-sm bg-transparent text-[#3D2501] placeholder-[#80654E]/70 focus:outline-none"
             />
           </div>
         </div>
@@ -105,7 +92,7 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
         <div className="py-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-1">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#5D613C] block font-semibold">
-              COTA LIVRE &bull; VALOR PERSONALIZADO
+              UM PRESENTE NO SEU VALOR
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#3D2501]">
               Deseja presentear com outro valor?
@@ -160,8 +147,9 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
                 className="cinema-gift group flex flex-col justify-between space-y-4"
               >
                 <div className="space-y-3">
+            {!preview && <Link href="/" className="inline-flex text-xs text-[#80654E] hover:text-[#3D2501] transition-colors">← Voltar ao início</Link>}
                   {/* Foto com Zoom Suave */}
-                  <div className="relative rounded-2xl aspect-[4/3] overflow-hidden bg-[#EFE8DD] border border-[#3D2501]/10">
+                  <div className="relative rounded-t-[3.5rem] rounded-b-2xl aspect-[4/3] overflow-hidden bg-[#C7B79D]/15">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={gift.image}
@@ -175,7 +163,7 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
                     <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#5D613C] block font-semibold">
                       {gift.categoryLabel}
                     </span>
-                    <h4 className="font-serif text-xl sm:text-2xl font-light text-[#3D2501] line-clamp-1 group-hover:text-[#5D613C] transition-colors">
+                    <h4 className="font-serif text-xl sm:text-2xl font-light text-[#3D2501] line-clamp-2 group-hover:text-[#5D613C] transition-colors">
                       {gift.title}
                     </h4>
                     <p className="text-xs text-[#80654E] font-light line-clamp-2 leading-relaxed">
@@ -186,7 +174,7 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
 
                 {/* Preço e Botão */}
                 <div className="pt-3 flex items-baseline justify-between">
-                  <span className="font-serif text-2xl font-light text-[#3D2501]">
+                  <span className="font-serif text-xl font-light text-[#80654E]">
                     {gift.price ? formatCurrency(gift.price) : "Em breve"}
                   </span>
 
