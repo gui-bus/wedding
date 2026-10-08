@@ -108,14 +108,9 @@ export function Events() {
           </div>
         </div>
       </div>
-      <svg aria-hidden="true" width="0" height="0" className="absolute pointer-events-none">
-        <defs>
-          <clipPath id="venue-wave" clipPathUnits="objectBoundingBox">
-            <path d="M 0,.35 C .18,.95 .35,1 .52,.62 C .7,.2 .84,.05 1,.3 L 1,1 L 0,1 Z" />
-          </clipPath>
-        </defs>
+      <svg aria-hidden="true" viewBox="0 0 1000 100" preserveAspectRatio="none" className="absolute inset-x-0 -bottom-px block w-full h-12 sm:h-16 pointer-events-none z-20 overflow-visible">
+        <path fill="#F1F1F1" d="M 0,35 C 180,95 350,100 520,62 C 700,20 840,5 1000,30 L 1000,104 L 0,104 Z" />
       </svg>
-      <div aria-hidden="true" className="absolute inset-x-0 -bottom-px h-12 sm:h-16 bg-[#F1F1F1] pointer-events-none z-20" style={{ clipPath: "url(#venue-wave)" }} />
     </section>
   );
 }

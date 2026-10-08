@@ -64,6 +64,16 @@ export function StoryEnvelope() {
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onRefresh: updatePaths,
+        onUpdate: trigger => {
+          // Keep the pin's reserved space aligned with the moving venue section.
+          const container = root.current;
+          const spacer = container?.parentElement;
+          if (!container || !spacer?.classList.contains("pin-spacer")) return;
+          const bottomOffset = parseFloat(gsap.getProperty(bottomGroup, "y") as string) || 0;
+          const height = hero.offsetHeight + story.offsetHeight + bottomGroup.offsetHeight + bottomOffset;
+          container.style.height = `${height}px`;
+          spacer.style.height = `${height + trigger.end - trigger.start}px`;
+        },
       } });
       timeline.fromTo(bottomGroup, { y: initialBottomY }, { y: initialBottomY, duration: 1, ease: "none" }, 0);
       panels.slice(1).forEach((panel, index) => {

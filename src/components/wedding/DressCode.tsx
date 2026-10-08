@@ -22,7 +22,7 @@ const inspirations = [
 
 export function DressCode() {
   return (
-    <section id="dress-code" className="cinematic-section relative overflow-hidden bg-[#F1F1F1] text-[#3D2501] px-6 sm:px-12 lg:px-20 py-16 sm:py-24">
+    <section id="dress-code" className="cinematic-section relative overflow-hidden bg-[#F1F1F1] text-[#3D2501] px-6 sm:px-12 lg:px-20 pt-12 sm:pt-16 pb-16 sm:pb-24">
       <WeddingOrnaments variant="floral" tone="paper" />
       <div className="relative z-10 max-w-6xl mx-auto space-y-12 sm:space-y-16">
         <div className="text-center max-w-3xl mx-auto space-y-5">
