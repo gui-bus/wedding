@@ -50,7 +50,7 @@ export function Countdown({ targetDateISO }: CountdownProps) {
 
   if (timeLeft.isPast) {
     return (
-      <div className="inline-flex items-center gap-3 py-2 text-[#C7B79D] font-serif text-xl sm:text-2xl tracking-widest uppercase">
+      <div className="inline-flex items-center gap-3 py-2 text-white font-serif text-xl sm:text-2xl tracking-widest uppercase">
         <span>Hoje é o nosso grande dia</span>
       </div>
     );
@@ -76,12 +76,12 @@ export function Countdown({ targetDateISO }: CountdownProps) {
             >
               {unit.value.toString().padStart(2, "0")}
             </motion.span>
-            <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] text-[#C7B79D]/80 uppercase mt-1">
+            <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] text-white uppercase mt-1">
               {unit.label}
             </span>
           </div>
           {index < units.length - 1 && (
-            <span className="font-serif text-2xl sm:text-3xl text-[#C7B79D]/40 font-light select-none">
+            <span className="font-serif text-2xl sm:text-3xl text-white/60 font-light select-none">
               /
             </span>
           )}
