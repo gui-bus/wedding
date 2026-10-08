@@ -14,7 +14,7 @@ export const weddingConfig: WeddingConfig = {
   couple: {
     partner1: "Giovanna",
     partner2: "Edson",
-    headline: "Vamos nos casar e queremos celebrar esse momento com você!",
+    headline: "Deus uniu nossos caminhos e sob sua benção\nuniremos nossas vidas para sempre!",
     weddingDate: "2027-05-29T11:30:00-03:00",
     locationSummary: "São José dos Campos - SP",
     hashtag: "#CasamentoGiovannaeEdson",

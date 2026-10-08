@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import Image from 'next/image';
 import gsap from "gsap";
 import { weddingConfig } from "@/config/wedding.config";
 import { formatDateBR } from "@/lib/utils";
@@ -24,7 +25,7 @@ export function Hero() {
       const context = gsap.context(() => {
         const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
         timeline.from(".hero-intro", { y: 16, opacity: 0, duration: 0.9 }, 0.15)
-          .from(".hero-name", { yPercent: 105, rotateX: 12, opacity: 0, duration: 1.5, stagger: 0.12 }, 0.3)
+          .from(".hero-logo", { y: 30, scale: 0.94, opacity: 0, duration: 1.5 }, 0.3)
           .from(".hero-detail", { y: 22, opacity: 0, duration: 1, stagger: 0.1 }, 0.85);
       }, section);
       return () => context.revert();
@@ -37,12 +38,10 @@ export function Hero() {
     <Navbar />
     <motion.div style={reducedMotion ? undefined : { y: contentY, opacity }} className="relative z-10 text-center flex flex-col items-center gap-9 sm:gap-12 py-10 sm:py-14">
       <p className="hero-intro cinema-eyebrow text-[#C7B79D]">Uma história de amor <span className="mx-3">·</span> 2027</p>
-      <h1 className="font-serif font-light tracking-[-0.04em] leading-[0.95] text-[clamp(3.8rem,10vw,11rem)] text-[#F5F5DA]">
-        <span className="inline-block overflow-hidden align-bottom pb-[0.13em]"><span className="hero-name inline-block">{couple.partner1}</span></span>{" "}
-        <span className="inline-block overflow-hidden align-bottom pb-[0.13em] mx-1 sm:mx-5"><span className="hero-name inline-block italic text-[#C7B79D]">&amp;</span></span>{" "}
-        <span className="inline-block overflow-hidden align-bottom pb-[0.13em]"><span className="hero-name inline-block">{couple.partner2}</span></span>
+      <h1 className="hero-logo w-full max-w-2xl mx-auto">
+        <Image src="/utils/logo_white.svg" alt={`${couple.partner1} e ${couple.partner2}`} width={1560} height={627} priority className="w-full h-auto" />
       </h1>
-      <p className="hero-detail font-serif italic text-xl sm:text-3xl font-light leading-relaxed max-w-3xl text-[#F1F1F1]/85">{couple.headline}</p>
+      <p className="hero-detail whitespace-pre-line font-serif italic text-xl sm:text-3xl font-light leading-relaxed max-w-3xl text-[#F1F1F1]/85">{couple.headline}</p>
       <div className="hero-detail flex flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-4 text-[10px] sm:text-xs tracking-[0.22em] uppercase text-[#C7B79D]">
         <span>{formatDateBR(couple.weddingDate)}</span><span>{couple.locationSummary}</span><span>11h30</span>
       </div>

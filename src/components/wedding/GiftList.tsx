@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { weddingConfig } from "@/config/wedding.config";
@@ -8,7 +9,7 @@ import { GiftItem } from "@/types/wedding";
 import { PixModal } from "./PixModal";
 import { Search, ArrowUpRight } from "lucide-react";
 
-export function GiftList() {
+export function GiftList({ preview = false }: { preview?: boolean }) {
   const { gifts } = weddingConfig;
 
   const [selectedCategory, setSelectedCategory] = useState<string>("todos");
@@ -33,6 +34,8 @@ export function GiftList() {
     });
   }, [gifts, selectedCategory, searchTerm]);
 
+  const visibleGifts = preview ? gifts.slice(0, 6) : filteredGifts;
+
   return (
     <section
       id="presentes"
@@ -56,6 +59,7 @@ export function GiftList() {
           </p>
         </div>
 
+        {!preview && <>
         {/* Filtros e Busca em Barra Linear */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6">
           {/* Categorias em Texto com Underline */}
@@ -136,16 +140,17 @@ export function GiftList() {
           </div>
         </div>
 
-        {/* Catálogo de Presentes (Sem Cards!) */}
-        {filteredGifts.length === 0 ? (
+        </>}
+        {/* Catálogo de Presentes */}
+        {visibleGifts.length === 0 ? (
           <div className="py-20 text-center ">
             <p className="font-serif text-xl font-light text-[#80654E]">
               Nenhum item encontrado para esta busca.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12">
-            {filteredGifts.map((gift, index) => (
+          <div className={preview ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12" : "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 sm:gap-12"}>
+            {visibleGifts.map((gift, index) => (
               <motion.div
                 key={gift.id}
                 initial={{ opacity: 0, y: 25 }}
@@ -201,6 +206,13 @@ export function GiftList() {
           </div>
         )}
 
+        {preview && (
+          <div className="flex justify-center">
+            <Link href="/presentes" className="cinema-button bg-[#3D2501] text-[#F1F1F1] hover:bg-[#5D613C] gap-3">
+              Ver todos os presentes <ArrowUpRight size={18} />
+            </Link>
+          </div>
+        )}
         {/* Modal PIX */}
         {(selectedGift || customAmountModal) && (
           <PixModal

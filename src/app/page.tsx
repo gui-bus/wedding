@@ -16,7 +16,7 @@ export default function HomePage() {
       <CinematicTransition />
       <Events />
       <DressCode />
-      <GiftList />
+      <GiftList preview />
       <RSVPSection />
       <Footer />
     </CinematicExperience>
