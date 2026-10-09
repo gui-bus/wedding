@@ -20,10 +20,8 @@ O checkout confirma os pagamentos; abrir o link não comprova recebimento. Para 
 Links de cartão e chave PIX estão vazios de propósito até receber os dados reais. Não há cobrança fictícia nem promessa de parcelamento em 12x.
 PIX: preencher pix.key, receiverName e city com os dados reais do titular.
 
-## Confirmação de presença
-Copiar .env.example para .env.local. Implantar google-apps-script/Code.gs numa planilha e definir RSVP_GOOGLE_APPS_SCRIPT_URL no servidor. Após testar a gravação real, definir NEXT_PUBLIC_RSVP_ENABLED=true e reiniciar/recompilar.
-Opcionalmente definir rsvp.contactWhatsApp com o número real. Definir rsvp.deadlineDate se houver prazo.
-Sem integração, o formulário está desativado. Falhas na gravação não são exibidas como sucesso.
+## Confirmação de presença e administração
+Firebase Authentication e Firestore no plano Spark. Painel em /admin e confirmação em /rsvp, com códigos exclusivos por convite. Configuração inicial, segurança, uso e testes em [docs/COMO-USAR.md](docs/COMO-USAR.md). A integração antiga com Google Apps Script foi substituída; não configure RSVP_GOOGLE_APPS_SCRIPT_URL.
 
 ## Publicação
 Projeto Next.js com rota de servidor: usar hospedagem compatível com Node/Next.js, como Vercel. Nenhuma publicação foi realizada.

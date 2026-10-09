@@ -1,23 +1,88 @@
-import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-const schema=z.object({
-  fullName:z.string().trim().min(3).max(100),
-  whatsapp:z.string().min(10).max(20),
-  attending:z.enum(["sim","nao"]), hasCompanions:z.boolean(),
-  companions:z.array(z.object({name:z.string().trim().min(3).max(100)})).max(20),
-  dietaryRestrictions:z.string().max(1000).optional(), message:z.string().max(500).optional(),
-}).refine(d=>!d.hasCompanions || d.attending==="nao" || d.companions.length>0);
-export async function POST(req:NextRequest){
-  const url=process.env.RSVP_GOOGLE_APPS_SCRIPT_URL;
-  if(!url) return NextResponse.json({success:false,error:"A confirmação de presença estará disponível em breve."},{status:503});
+import { services } from "@/lib/firebase/admin";
+import {
+  body,
+  failure,
+  HttpError,
+  reply,
+  sameOrigin,
+  tokenId,
+  tokenSchema,
+} from "@/lib/guest-server";
+import type { Guest } from "@/types/guests";
+export const runtime = "nodejs";
+const schema = z
+  .object({
+    token: tokenSchema,
+    revision: z.number().int().positive(),
+    responses: z
+      .array(
+        z
+          .object({
+            id: z.string().uuid(),
+            status: z.enum(["confirmado", "recusado"]),
+          })
+          .strict(),
+      )
+      .min(1)
+      .max(40),
+    message: z.string().trim().max(500),
+    dietaryRestrictions: z.string().trim().max(500),
+  })
+  .strict();
+export async function POST(request: Request) {
   try {
-    const data=schema.parse(await req.json());
-    const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data),signal:AbortSignal.timeout(15000)});
-    if(!response.ok) throw new Error("Falha ao registrar");
-    const result=await response.json();
-    if(result.status!=="success") throw new Error("Confirmação não registrada");
-    return NextResponse.json({success:true});
-  } catch(error:unknown) {
-    return NextResponse.json({success:false,error:error instanceof z.ZodError ? "Confira os dados informados." : "Não foi possível registrar sua resposta. Tente novamente mais tarde."},{status:error instanceof z.ZodError ? 400 : 502});
+    sameOrigin(request);
+    const data = schema.parse(await body(request));
+    const { db } = services();
+    const ref = db.collection("invitations").doc(tokenId(data.token));
+    await db.runTransaction(async (t) => {
+      const snap = await t.get(ref);
+      const configSnap = await t.get(db.doc("settings/rsvp"));
+      const config = configSnap.data();
+      if (
+        config?.enabled === false ||
+        (config?.deadline && Date.now() > Date.parse(config.deadline))
+      )
+        throw new HttpError(
+          403,
+          "O período de confirmação está encerrado. Fale com os noivos.",
+        );
+      const current = snap.data();
+      if (!current || !current.active)
+        throw new HttpError(404, "Convite não encontrado. Fale com os noivos.");
+      if (current.revision !== data.revision)
+        throw new HttpError(
+          409,
+          "Este convite foi atualizado. Consulte o código novamente antes de responder.",
+        );
+      const guests = current.guests as Guest[];
+      const responses = new Map(data.responses.map((r) => [r.id, r.status]));
+      if (
+        responses.size !== guests.length ||
+        data.responses.length !== guests.length ||
+        guests.some((g) => !responses.has(g.id))
+      )
+        throw new HttpError(
+          400,
+          "Responda apenas pelas pessoas do convite, sem repetir nomes.",
+        );
+      const now = new Date().toISOString();
+      t.update(ref, {
+        guests: guests.map((g) => ({
+          ...g,
+          status: responses.get(g.id),
+          checkedIn: responses.get(g.id) === "confirmado" && g.checkedIn,
+        })),
+        revision: current.revision + 1,
+        updatedAt: now,
+        respondedAt: now,
+        message: data.message,
+        dietaryRestrictions: data.dietaryRestrictions,
+      });
+    });
+    return reply({ success: true, revision: data.revision + 1 });
+  } catch (e) {
+    return failure(e);
   }
 }

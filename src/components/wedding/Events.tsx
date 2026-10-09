@@ -1,49 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion, useScroll } from "framer-motion";
+import { useScroll } from "framer-motion";
 import { ArrowUpRight, Heart, Navigation } from "lucide-react";
 import { WeddingOrnaments, WeddingBranch } from "./WeddingOrnaments";
 import { weddingConfig } from "@/config/wedding.config";
-import venueCeremony from "../../../public/utils/quintal-e-cia/ambiente-quintal-e-cia-2.webp";
-import venueEntrance from "../../../public/utils/quintal-e-cia/ambiente-quintal-e-cia-1.webp";
-import venueLights from "../../../public/utils/quintal-e-cia/ambiente-quintal-e-cia-3.webp";
-import venueDetails from "../../../public/utils/quintal-e-cia/ambiente-quintal-e-cia-4.webp";
-
-const venuePhotos = [
-  { src: venueCeremony, alt: "Espaço da cerimônia no Quintal & Cia, com cadeiras, plantas e luzes" },
-  { src: venueEntrance, alt: "Entrada do Quintal & Cia, com fachada coberta por plantas" },
-  { src: venueLights, alt: "Iluminação e vegetação do Quintal & Cia" },
-  { src: venueDetails, alt: "Decoração e ambiente interno do Quintal & Cia" },
-];
+import venuePhoto from "../../../public/utils/quintal-e-cia/quintal-e-cia-wp.webp";
 
 export function Events() {
   const section = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: section, offset: ["start end", "end start"] });
   const { ceremony } = weddingConfig;
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const reducedMotion = useReducedMotion();
-  const photo = venuePhotos[photoIndex];
-  const gallery = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    const frame = gallery.current;
-    if (!frame) return;
-    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.2 });
-    observer.observe(frame);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible || isPaused) return;
-    const timer = window.setInterval(() => {
-      if (document.visibilityState === "visible") setPhotoIndex(current => (current + 1) % venuePhotos.length);
-    }, 6000);
-    return () => window.clearInterval(timer);
-  }, [isVisible, isPaused]);
 
   return (
     <section ref={section} id="eventos" className="cinematic-section relative overflow-hidden w-full pt-8 sm:pt-12 pb-16 sm:pb-24 px-6 sm:px-12 lg:px-20 bg-[#5D613C] text-[#F1F1F1] [&_a:focus-visible]:outline-[#F1F1F1] [&_button:focus-visible]:outline-[#F1F1F1] [&_[tabindex]:focus-visible]:outline-[#F1F1F1]">
@@ -57,20 +25,11 @@ export function Events() {
 
         <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
           <div data-cinema-copy>
-            <div ref={gallery} role="region" aria-roledescription="carrossel" aria-label="Fotos do Quintal & Cia" tabIndex={0}
-              onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}
-              onFocus={() => setIsPaused(true)} onBlur={() => setIsPaused(false)}
+            <div
               className="relative w-full max-w-xl mx-auto rounded-t-[45%] rounded-b-[2rem] border border-[#C7B79D]/65 bg-white/5 p-3 sm:p-4 shadow-[0_24px_70px_-30px_#17130D80]">
               <div aria-hidden="true" className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#C7B79D] z-10"><Heart size={20} strokeWidth={1.2} /></div>
               <div className="relative aspect-[4/5] w-full rounded-t-[45%] rounded-b-[1.5rem] overflow-hidden ring-1 ring-[#F1F1F1]/25 bg-[#C7B79D]/20">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.div key={photo.src.src} className="absolute inset-0"
-                    initial={reducedMotion ? false : { opacity: 0, scale: 1.025 }}
-                    animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
-                    transition={{ duration: reducedMotion ? 0 : 0.55, ease: [0.16, 1, 0.3, 1] }}>
-                    <Image src={photo.src} alt={photo.alt} fill placeholder="blur" sizes="(min-width: 1024px) 42vw, 90vw" className="object-cover" />
-                  </motion.div>
-                </AnimatePresence>
+                <Image src={venuePhoto} alt="Espaço da cerimônia no Quintal & Cia, com corredor entre cadeiras, flores e vegetação" fill placeholder="blur" sizes="(min-width: 1024px) 42vw, 90vw" className="object-cover" />
               </div>
               <div aria-hidden="true" className="absolute -left-7 -bottom-3 w-16 sm:w-20 -rotate-[30deg] text-[#C7B79D] pointer-events-none z-10"><WeddingBranch /></div>
             </div>

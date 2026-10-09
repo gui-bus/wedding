@@ -112,7 +112,7 @@ export function GiftList({ preview = false }: { preview?: boolean }) {
                 placeholder="150"
                 value={customValue}
                 onChange={(e) => setCustomValue(e.target.value)}
-                className="w-24 bg-transparent font-mono text-lg text-[#3D2501] focus:outline-none"
+                className="guest-input wedding-amount-input"
               />
             </div>
             <button

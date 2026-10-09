@@ -1,0 +1,1576 @@
+/* Wedding stationery, shared typography and botanical ornaments. */
+.admin-wedding {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  color: #3d2501;
+  background: #f1f1f1;
+}
+.admin-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+.admin-floral-layer {
+  position: absolute;
+  inset: 0;
+  min-height: 900px;
+}
+.admin-floral-layer > div {
+  opacity: 0.75;
+}
+.admin-background-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 8% 12%, #c7b79d24, transparent 46%),
+    radial-gradient(ellipse at 100% 70%, #5d613c0b, transparent 45%);
+}
+.admin-shell {
+  width: min(1240px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.admin-nav {
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid #80654e24;
+}
+.admin-wordmark {
+  font-family: var(--font-serif);
+  font-size: 29px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+.admin-wordmark em {
+  padding-inline: 5px;
+  color: #80654e;
+  font-weight: 300;
+}
+.admin-wordmark > span {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #80654e;
+}
+.admin-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5d613c;
+  padding-block: 12px;
+}
+.admin-back:hover {
+  color: #3d2501;
+}
+.admin-eyebrow {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #5d613c;
+}
+.admin-page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 58px 0 36px;
+}
+.admin-page-heading h1 {
+  margin-top: 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(52px, 5.8vw, 82px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+.admin-page-heading h1 em,
+.admin-list-heading h2 em {
+  color: #5d613c;
+}
+.admin-subtitle {
+  margin-top: 24px;
+  max-width: 440px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #80654e;
+}
+.admin-heading-seal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  color: #80654e;
+}
+.admin-heading-seal > svg {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  opacity: 0.22;
+}
+.admin-heading-seal > span {
+  font-family: var(--font-serif);
+  font-size: 30px;
+}
+.admin-heading-seal i {
+  font-size: 22px;
+  color: #5d613c;
+}
+.admin-login-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  max-width: 1060px;
+  margin: 48px auto 40px;
+  border-radius: 220px 24px 24px 24px;
+  box-shadow: 0 30px 85px -48px #3d25014a;
+  overflow: hidden;
+  border: 1px solid #c7b79d60;
+  background: #f9f8f4;
+}
+.admin-login-scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 650px;
+  padding: 64px 28px 48px;
+  background: #5d613c;
+  color: #f5f5da;
+}
+.admin-scene-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.3;
+}
+.admin-login-scene::after {
+  content: "";
+  position: absolute;
+  inset: 19px;
+  border: 1px solid #c7b79d55;
+  border-radius: 210px 12px 12px 12px;
+  pointer-events: none;
+}
+.admin-scene-copy {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.admin-scene-copy > .admin-eyebrow {
+  color: #e3d7c3;
+  font-size: 8px;
+}
+.admin-monogram {
+  width: 92px;
+  height: 92px;
+  margin: 34px auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c7b79d66;
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-size: 35px;
+}
+.admin-monogram span {
+  color: #c7b79d;
+  font-size: 25px;
+  font-style: italic;
+  padding-inline: 3px;
+}
+.admin-scene-copy h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(45px, 4.3vw, 65px);
+  letter-spacing: -0.035em;
+  font-weight: 300;
+  line-height: 1.06;
+}
+.admin-scene-copy h1 em {
+  color: #e0cfb3;
+}
+.admin-scene-copy > p:last-child {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+  color: #e3d7c3;
+}
+.admin-scene-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #c7b79d;
+  margin: 28px auto 22px;
+}
+.admin-scene-rule::before,
+.admin-scene-rule::after {
+  content: "";
+  height: 1px;
+  width: 44px;
+  background: #c7b79d70;
+}
+.admin-login-card {
+  padding: 50px clamp(28px, 4vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  background: linear-gradient(145deg, #fffdfb, #f5f3ed);
+}
+.admin-login-intro {
+  margin-bottom: 4px;
+}
+.admin-lock {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 26px;
+  border: 1px solid #c7b79d80;
+  border-radius: 50%;
+  color: #5d613c;
+}
+.admin-login-intro h2 {
+  margin-top: 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 3.5vw, 51px);
+  line-height: 1.06;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+.admin-login-intro h2 em {
+  color: #80654e;
+}
+.admin-login-intro > p:last-child {
+  font-size: 12px;
+  line-height: 1.9;
+  font-weight: 300;
+  color: #80654e;
+  margin-top: 20px;
+  max-width: 300px;
+}
+.admin-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5d613c;
+}
+.admin-wedding .guest-input {
+  background: #fffdfbba;
+  border-color: #c7b79d75;
+  border-radius: var(--wedding-radius);
+  padding: 13px 16px;
+  font-size: 13px;
+  min-height: 48px;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+.admin-wedding .guest-input::placeholder {
+  color: #80654eaa;
+}
+.admin-wedding .guest-input:hover {
+  border-color: #80654e90;
+}
+.admin-wedding .guest-input:focus {
+  background: #fffdfb;
+  box-shadow: 0 0 0 3px #c7b79d20;
+}
+.admin-wedding .guest-button,
+.admin-wedding .guest-secondary {
+  gap: 9px;
+  min-height: 44px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    transform 0.25s;
+}
+.admin-wedding .guest-button {
+  background: #5d613c;
+  color: #fffdfb;
+}
+.admin-wedding .guest-button:hover:not(:disabled) {
+  background: #44492c;
+  transform: translateY(-1px);
+}
+.admin-wedding .guest-secondary {
+  background: #fffdfb65;
+  border-color: #c7b79d80;
+}
+.admin-wedding .guest-secondary:hover:not(:disabled) {
+  background: #ede8de;
+  border-color: #80654e80;
+}
+.admin-wedding .admin-login-submit {
+  justify-content: space-between;
+  min-height: 52px;
+  width: 100%;
+  margin-top: 4px;
+  padding-inline: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.admin-login-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 9px;
+  color: #80654e;
+  text-align: center;
+  line-height: 1.8;
+}
+.admin-session {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding-block: 20px;
+  border-block: 1px solid #c7b79d55;
+}
+.admin-account {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  min-width: 0;
+  margin-right: auto;
+}
+.admin-account-avatar {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e7e4d9;
+  color: #5d613c;
+  font-family: var(--font-serif);
+  font-size: 23px;
+}
+.admin-account small {
+  display: block;
+  color: #80654e;
+  font-size: 9px;
+  margin-bottom: 4px;
+}
+.admin-account-email {
+  display: block;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  margin-block: 28px;
+}
+.admin-stat {
+  border: 1px solid #c7b79d4d;
+  border-radius: var(--wedding-radius);
+  padding: 22px 20px;
+  background: #fffefbbd;
+  box-shadow: 0 8px 30px -24px #3d250126;
+}
+.admin-stat-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  color: #80654e;
+}
+.admin-stat-top p {
+  font-size: 10px;
+}
+.admin-stat strong {
+  display: block;
+  margin-top: 15px;
+  font-family: var(--font-serif);
+  font-size: 54px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.admin-stat-caption {
+  display: block;
+  font-size: 9px;
+  margin-top: 11px;
+  color: #80654e;
+}
+.admin-stat:first-child {
+  background: #5d613c;
+  border-color: #5d613c;
+  color: #f5f5da;
+}
+.admin-stat:first-child .admin-stat-top,
+.admin-stat:first-child .admin-stat-caption {
+  color: #e5dccb;
+}
+.admin-settings {
+  border: 1px solid #c7b79d55;
+  border-radius: var(--wedding-radius);
+  background: #fffefb8c;
+  padding: 19px 23px;
+  margin-bottom: 48px;
+}
+.admin-settings summary {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 12px;
+  color: #5d613c;
+  list-style: none;
+}
+.admin-settings summary::-webkit-details-marker {
+  display: none;
+}
+.admin-settings summary::after {
+  content: "+";
+  font-size: 20px;
+  font-weight: 300;
+  margin-left: auto;
+}
+.admin-settings[open] summary::after {
+  content: "−";
+}
+.admin-settings form > label {
+  font-size: 12px;
+}
+.admin-settings > p {
+  font-size: 11px;
+  color: #80654e;
+  line-height: 1.8;
+}
+.admin-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.admin-list-heading h2 {
+  margin-top: 8px;
+  font-family: var(--font-serif);
+  font-size: clamp(35px, 4vw, 48px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.admin-list-heading > div > p:last-child {
+  margin-top: 10px;
+  font-size: 10px;
+  color: #80654e;
+}
+.admin-heading-branch {
+  width: 45px;
+  height: 85px;
+  color: #80654e;
+  opacity: 0.4;
+  transform: rotate(25deg);
+  overflow: hidden;
+  margin-right: 16px;
+}
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #c7b79d4d;
+  border-radius: var(--wedding-radius);
+  background: #fffdfb99;
+}
+.admin-toolbar .guest-input {
+  flex: 1 1 175px;
+  width: auto;
+  max-width: none;
+}
+.admin-editor {
+  margin-block: 28px;
+  background: #fffdfbeb;
+  border: 1px solid #c7b79d99;
+  border-radius: var(--wedding-radius);
+  padding: 30px;
+  box-shadow: 0 20px 55px -38px #3d25013d;
+}
+.admin-editor > h2 {
+  font-weight: 300;
+  letter-spacing: -0.03em;
+}
+.admin-editor > label {
+  font-size: 12px;
+}
+.admin-editor-person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  padding: 18px;
+  background: #f0ede6;
+  border: 1px solid #c7b79d33;
+  border-radius: var(--wedding-radius);
+}
+.admin-editor-person > label {
+  font-size: 11px;
+  align-items: center;
+}
+.admin-editor-person > button {
+  font-size: 10px;
+  margin-left: auto;
+}
+.admin-wedding input[type="checkbox"] {
+  accent-color: #5d613c;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.admin-invite {
+  padding: 28px;
+  border: 1px solid #c7b79d59;
+  border-radius: var(--wedding-radius);
+  background: #fffefbdb;
+  box-shadow: 0 10px 40px -34px #3d25012e;
+}
+.admin-invite--inactive {
+  background: #edebe5b3;
+}
+.admin-invite h2 {
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+.admin-invite > div:first-child {
+  padding-bottom: 4px;
+}
+.admin-invite li {
+  min-height: 65px;
+}
+.admin-person-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  min-width: 0;
+}
+.admin-person-name > span:last-child {
+  overflow-wrap: anywhere;
+}
+.admin-person-initial {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #c7b79d55;
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  color: #80654e;
+  font-size: 18px;
+}
+.admin-person-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+}
+.admin-person-actions > label {
+  align-items: center;
+  font-size: 11px;
+  color: #5d613c;
+}
+.admin-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--wedding-radius);
+  font-size: 9px;
+  font-weight: 500;
+}
+.admin-status::before {
+  content: "";
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.admin-status--confirmado {
+  color: #4a5937;
+  background: #e9eedc;
+}
+.admin-status--pendente {
+  color: #89612f;
+  background: #f3ebdd;
+}
+.admin-status--recusado {
+  color: #86554d;
+  background: #f3e6e2;
+}
+.admin-invite > details {
+  padding-top: 13px;
+  border-top: 1px solid #c7b79d33;
+  color: #80654e;
+  font-size: 10px;
+}
+.admin-invite > p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.admin-empty {
+  text-align: center;
+  padding: 56px 24px;
+  border: 1px dashed #c7b79d99;
+  border-radius: var(--wedding-radius);
+  background: #fffdfb80;
+}
+.admin-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  color: #5d613c;
+  border: 1px solid #c7b79d70;
+  border-radius: 50%;
+  background: #f1f1e9;
+}
+.admin-empty h3 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 33px;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.admin-empty p {
+  max-width: 355px;
+  margin: 14px auto 22px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #80654e;
+}
+.admin-alert {
+  margin-block: 20px;
+  padding: 16px 20px;
+  border-radius: var(--wedding-radius);
+  font-size: 12px;
+  line-height: 1.8;
+  border: 1px solid;
+}
+.admin-alert--error {
+  color: #8b3a35;
+  border-color: #d4aba180;
+  background: #faeeeb;
+}
+.admin-alert--success {
+  color: #4a5937;
+  border-color: #5d613c33;
+  background: #edf0e6;
+}
+.admin-loading {
+  display: grid;
+  justify-items: center;
+  padding: 140px 24px;
+  gap: 22px;
+  color: #80654e;
+  font-size: 12px;
+}
+.admin-loading > svg,
+.admin-refresh-busy {
+  animation: admin-turn 5s linear infinite;
+}
+@keyframes admin-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (min-width: 900px) {
+  .admin-wedding--login .admin-shell {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+  }
+  .admin-wedding--login .admin-login-grid {
+    width: 100%;
+  }
+}
+@media (max-width: 1000px) {
+  .admin-shell {
+    width: calc(100% - 56px);
+  }
+  .admin-login-card {
+    padding: 40px 30px;
+  }
+  .admin-stats {
+    gap: 10px;
+  }
+  .admin-stat {
+    padding: 18px 13px;
+  }
+  .admin-stat-top p {
+    font-size: 9px;
+  }
+  .admin-stat-caption {
+    font-size: 8px;
+  }
+}
+@media (max-width: 700px) {
+  .admin-shell {
+    width: calc(100% - 36px);
+  }
+  .admin-nav {
+    min-height: 94px;
+    gap: 12px;
+  }
+  .admin-wordmark {
+    font-size: 24px;
+  }
+  .admin-wordmark > span {
+    font-size: 7px;
+    letter-spacing: 0.22em;
+  }
+  .admin-back {
+    font-size: 8px;
+    letter-spacing: 0.04em;
+    gap: 5px;
+  }
+  .admin-back svg {
+    width: 12px;
+  }
+  .admin-login-grid {
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+    border-radius: 130px 130px 23px 23px;
+  }
+  .admin-login-scene {
+    min-height: 320px;
+    padding: 35px 20px 30px;
+  }
+  .admin-login-scene::after {
+    inset: 12px;
+    border-radius: 120px 120px 10px 10px;
+  }
+  .admin-scene-copy > .admin-eyebrow {
+    font-size: 7px;
+  }
+  .admin-monogram {
+    width: 58px;
+    height: 58px;
+    font-size: 25px;
+    margin: 20px auto 15px;
+  }
+  .admin-monogram span {
+    font-size: 18px;
+  }
+  .admin-scene-copy h1 {
+    font-size: 40px;
+  }
+  .admin-scene-rule {
+    margin-block: 18px 12px;
+  }
+  .admin-scene-copy > p:last-child {
+    font-size: 9px;
+  }
+  .admin-login-card {
+    padding: 34px 26px;
+    gap: 22px;
+  }
+  .admin-lock {
+    display: none;
+  }
+  .admin-login-intro h2 {
+    font-size: 42px;
+  }
+  .admin-page-heading {
+    padding-top: 38px;
+    gap: 0;
+  }
+  .admin-page-heading h1 {
+    font-size: 52px;
+  }
+  .admin-heading-seal {
+    display: none;
+  }
+  .admin-subtitle {
+    font-size: 12px;
+  }
+  .admin-account {
+    width: 100%;
+  }
+  .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .admin-stat {
+    padding: 20px 17px;
+  }
+  .admin-stat:first-child {
+    grid-column: 1 / -1;
+  }
+  .admin-stat:first-child strong {
+    display: inline-block;
+    margin-right: 14px;
+  }
+  .admin-stat:first-child .admin-stat-caption {
+    display: inline-block;
+  }
+  .admin-stat strong {
+    font-size: 46px;
+  }
+  .admin-stat-top p {
+    font-size: 11px;
+  }
+  .admin-stat-caption {
+    font-size: 9px;
+  }
+  .admin-settings {
+    padding: 18px;
+    margin-bottom: 35px;
+  }
+  .admin-settings summary {
+    font-size: 11px;
+  }
+  .admin-toolbar {
+    padding: 14px;
+    gap: 10px;
+  }
+  .admin-toolbar > .guest-button {
+    flex: 1 1 auto;
+  }
+  .admin-toolbar .guest-input {
+    flex-basis: 100%;
+  }
+  .admin-editor,
+  .admin-invite {
+    padding: 20px 17px;
+  }
+  .admin-editor-person {
+    padding: 15px;
+    gap: 14px;
+  }
+  .admin-editor-person .guest-input {
+    max-width: none;
+  }
+  .admin-invite > div:first-child > div {
+    width: 100%;
+  }
+  .admin-invite li {
+    gap: 12px;
+    padding-block: 16px;
+  }
+  .admin-person-actions {
+    margin-left: 44px;
+    gap: 12px;
+  }
+  .admin-empty {
+    padding: 38px 20px;
+  }
+  .admin-empty h3 {
+    font-size: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-wedding *,
+  .admin-wedding *::before,
+  .admin-wedding *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .admin-wedding .guest-button:hover {
+    transform: none;
+  }
+}
+
+/* Login sem cabeçalho, centralizado nos dois eixos. */
+.admin-wedding--login .admin-shell {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 32px;
+}
+.admin-wedding--login .admin-login-grid {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Respiro no fim do painel e ornamentos sem coração no fundo. */
+.admin-wedding:not(.admin-wedding--login) .admin-shell {
+  padding-bottom: clamp(48px, 7vw, 96px);
+}
+.admin-floral-layer .lucide-heart {
+  display: none;
+}
+
+/* URL-driven dialogs keep the dashboard in place beneath a quiet backdrop. */
+.admin-settings-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  color: #5d613c;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.admin-settings-trigger:hover {
+  background: #fffdfb;
+  border-color: #c7b79d;
+}
+.admin-settings-trigger > span:first-of-type {
+  display: grid;
+  gap: 5px;
+}
+.admin-settings-trigger strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.admin-settings-trigger small {
+  font-size: 10px;
+  color: #80654e;
+}
+.admin-settings-edit {
+  margin-left: auto;
+  font-size: 10px;
+  border: 1px solid #c7b79d80;
+  border-radius: var(--wedding-radius);
+  padding: 8px 14px;
+}
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #191d16a8;
+  backdrop-filter: blur(5px);
+  animation: admin-modal-fade 0.18s ease-out;
+}
+.admin-wedding.admin-modal {
+  position: fixed;
+  z-index: 101;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(840px, calc(100vw - 48px));
+  max-height: calc(100dvh - 48px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fffdf9;
+  border: 1px solid #e8e1d6;
+  border-radius: var(--wedding-radius);
+  box-shadow: 0 40px 120px #11150e50;
+  overflow: hidden;
+  animation: admin-modal-enter 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.admin-wedding.admin-modal--compact {
+  width: min(560px, calc(100vw - 48px));
+}
+.admin-modal-heading {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 17px;
+  padding: 29px 32px 25px;
+  border-bottom: 1px solid #c7b79d40;
+  background: radial-gradient(ellipse at 0 0, #c7b79d17, transparent 65%);
+  flex-shrink: 0;
+}
+.admin-modal-emblem {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #c7b79d70;
+  border-radius: 50%;
+  flex-shrink: 0;
+  color: #5d613c;
+  background: #f4f2e9;
+}
+.admin-modal-emblem--danger {
+  background: #f5eae5;
+  color: #92574b;
+  border-color: #d5b6aa;
+}
+.admin-modal-heading > div {
+  min-width: 0;
+  padding-right: 28px;
+}
+.admin-modal-heading .admin-eyebrow {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+}
+.admin-modal-heading h2 {
+  font-family: var(--font-serif);
+  font-size: 41px;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+.admin-modal-description {
+  margin-top: 11px;
+  font-size: 11px;
+  color: #80654e;
+  line-height: 1.8;
+  max-width: 490px;
+}
+.admin-modal-close {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 22px;
+  top: 24px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #c7b79d50;
+  color: #80654e;
+  background: #fffdfb;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-modal-close:hover:not(:disabled) {
+  background: #ece7dd;
+}
+.admin-modal-close:disabled {
+  opacity: 0.4;
+  cursor: wait;
+}
+.admin-modal-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.admin-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 27px 32px 30px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  min-height: 0;
+  min-inline-size: 0;
+}
+.admin-modal-body > .admin-alert {
+  flex-shrink: 0;
+  margin: 0;
+}
+.admin-modal-body:disabled {
+  cursor: wait;
+}
+.admin-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.admin-form-section + .admin-form-section {
+  border-top: 1px solid #c7b79d3d;
+  padding-top: 25px;
+  margin-top: 2px;
+}
+.admin-form-kicker {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #80654e;
+}
+.admin-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 11px;
+}
+.admin-modal-field > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #5a4c39;
+  font-weight: 500;
+}
+.admin-modal-field small {
+  margin-left: auto;
+  font-size: 8px;
+  color: #948574;
+  font-weight: 400;
+}
+.admin-modal .guest-input {
+  min-height: 47px;
+  background: #fffefa;
+  border-color: #dcd3c5;
+  font-size: 12px;
+  border-radius: var(--wedding-radius);
+}
+.admin-invitation-toggle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  padding: 16px 18px;
+  border: 1px solid #c7b79d45;
+  border-radius: var(--wedding-radius);
+  background: #f3f2e9;
+  cursor: pointer;
+}
+.admin-invitation-toggle > span:first-child {
+  display: grid;
+  gap: 6px;
+}
+.admin-invitation-toggle strong {
+  font-size: 11px;
+  color: #5d613c;
+  font-weight: 500;
+}
+.admin-invitation-toggle small {
+  font-size: 10px;
+  color: #80654e;
+  line-height: 1.7;
+}
+.admin-modal .admin-invitation-toggle > input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.admin-switch-track {
+  position: relative;
+  flex-shrink: 0;
+  width: 37px;
+  height: 22px;
+  margin-left: auto;
+  border-radius: 999px;
+  background: #bcb7ab;
+  transition: background 0.2s;
+}
+.admin-switch-track::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  left: 3px;
+  top: 3px;
+  background: #fffdfb;
+  box-shadow: 0 1px 3px #0002;
+  transition: transform 0.2s;
+}
+.admin-invitation-toggle input:checked + .admin-switch-track {
+  background: #5d613c;
+}
+.admin-invitation-toggle input:checked + .admin-switch-track::after {
+  transform: translateX(15px);
+}
+.admin-invitation-toggle:has(input:focus-visible) {
+  outline: 2px solid #5d613c;
+  outline-offset: 3px;
+}
+.admin-people-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.admin-people-heading h3 {
+  font-family: var(--font-serif);
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-top: 7px;
+}
+.admin-people-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  color: #5d613c;
+  border: 1px solid #c7b79d60;
+  border-radius: var(--wedding-radius);
+  padding: 7px 10px;
+  font-size: 9px;
+  background: #f5f3ea;
+}
+.admin-form-help {
+  font-size: 10px;
+  color: #80654e;
+  line-height: 1.9;
+}
+.admin-people-heading + .admin-form-help {
+  margin-top: -8px;
+}
+.admin-guest-cards {
+  display: grid;
+  gap: 14px;
+}
+.admin-guest-card {
+  background: #f4f2eb;
+  border: 1px solid #ded8ca;
+  border-radius: var(--wedding-radius);
+  overflow: hidden;
+}
+.admin-guest-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 17px;
+  border-bottom: 1px solid #ded8ca80;
+}
+.admin-guest-card-heading > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #5a4c39;
+  font-weight: 500;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.admin-guest-card-heading i {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-style: normal;
+  background: #e9e6da;
+  color: #5d613c;
+}
+.admin-remove-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 9px;
+  color: #92574b;
+  padding: 6px 8px;
+  border-radius: var(--wedding-radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-remove-person:hover:not(:disabled) {
+  background: #edddd6;
+}
+.admin-remove-person:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.admin-guest-fields {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 15px;
+  padding: 17px 17px 14px;
+}
+.admin-guest-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 17px 17px;
+}
+.admin-guest-options > small {
+  font-size: 8px;
+  line-height: 1.6;
+  color: #8c8070;
+  margin-left: auto;
+}
+.admin-option-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+  min-height: 34px;
+  font-size: 10px;
+  padding: 7px 10px;
+  border: 1px solid #d7d0c2;
+  border-radius: var(--wedding-radius);
+  color: #7b6f5c;
+  background: #fffdf9;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.admin-modal .admin-option-chip input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.admin-option-check {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #c7b79d;
+  border-radius: var(--wedding-radius);
+}
+.admin-option-check svg {
+  opacity: 0;
+}
+.admin-option-chip:has(input:checked) {
+  color: #4a5533;
+  background: #e8eddb;
+  border-color: #a8b18a;
+}
+.admin-option-chip input:checked + .admin-option-check {
+  background: #5d613c;
+  color: #fffdf9;
+  border-color: #5d613c;
+}
+.admin-option-chip input:checked + .admin-option-check svg {
+  opacity: 1;
+}
+.admin-option-chip:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.admin-option-chip:has(input:focus-visible) {
+  outline: 2px solid #5d613c;
+  outline-offset: 3px;
+}
+.admin-add-person {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px dashed #c7b79d;
+  border-radius: var(--wedding-radius);
+  padding: 14px 16px;
+  min-height: 46px;
+  color: #5d613c;
+  font-size: 10px;
+  cursor: pointer;
+  background: #fffdfb;
+}
+.admin-add-person > span {
+  margin-left: auto;
+  font-size: 9px;
+  color: #9a8a75;
+}
+.admin-add-person:hover:not(:disabled) {
+  background: #f2f1e6;
+  border-color: #5d613c;
+}
+.admin-add-person:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.admin-modal-footer {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 32px;
+  border-top: 1px solid #c7b79d40;
+  background: #fffdf9;
+}
+.admin-save-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  color: #948574;
+  margin-right: auto;
+}
+.admin-modal .guest-button,
+.admin-modal .guest-secondary {
+  font-size: 10px;
+  min-height: 43px;
+  padding-inline: 20px;
+}
+.admin-delete-summary {
+  display: grid;
+  gap: 9px;
+  padding: 19px;
+  border-radius: var(--wedding-radius);
+  border: 1px solid #c7b79d50;
+  background: #f4f1e9;
+}
+.admin-delete-summary strong {
+  font-family: var(--font-serif);
+  font-size: 27px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.admin-delete-summary span {
+  color: #80654e;
+  font-size: 10px;
+}
+.admin-modal .admin-danger-button {
+  background: #8b5148;
+}
+.admin-modal .admin-danger-button:hover:not(:disabled) {
+  background: #733f37;
+}
+@keyframes admin-modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes admin-modal-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 8px)) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@media (max-width: 600px) {
+  .admin-wedding.admin-modal,
+  .admin-wedding.admin-modal--compact {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    border-radius: var(--wedding-radius);
+  }
+  .admin-modal-heading {
+    padding: 22px 20px 20px;
+    gap: 12px;
+  }
+  .admin-modal-heading h2 {
+    font-size: 33px;
+  }
+  .admin-modal-emblem {
+    width: 37px;
+    height: 37px;
+  }
+  .admin-modal-emblem > svg {
+    width: 22px;
+  }
+  .admin-modal-description {
+    font-size: 10px;
+    line-height: 1.7;
+  }
+  .admin-modal-close {
+    top: 17px;
+    right: 15px;
+    width: 29px;
+    height: 29px;
+  }
+  .admin-modal-body {
+    padding: 22px 18px;
+    gap: 19px;
+  }
+  .admin-form-section {
+    gap: 15px;
+  }
+  .admin-people-heading h3 {
+    font-size: 25px;
+  }
+  .admin-guest-fields {
+    grid-template-columns: 1fr;
+    gap: 13px;
+    padding: 15px 13px;
+  }
+  .admin-guest-card-heading {
+    padding: 11px 13px;
+  }
+  .admin-guest-options {
+    padding-inline: 13px;
+  }
+  .admin-guest-options > small {
+    width: 100%;
+    margin-left: 0;
+  }
+  .admin-remove-person > span {
+    display: none;
+  }
+  .admin-modal-footer {
+    padding: 15px 18px;
+    gap: 8px;
+  }
+  .admin-modal-footer > .guest-button,
+  .admin-modal-footer > .guest-secondary {
+    flex: 1;
+  }
+  .admin-save-hint {
+    flex-basis: 100%;
+    justify-content: center;
+    margin-right: 0;
+    margin-bottom: 3px;
+    font-size: 8px;
+  }
+  .admin-settings-trigger {
+    padding: 16px;
+    gap: 10px;
+  }
+  .admin-settings-trigger strong {
+    font-size: 10px;
+  }
+  .admin-settings-trigger small {
+    font-size: 9px;
+    line-height: 1.6;
+  }
+  .admin-settings-edit {
+    padding: 6px 10px;
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-modal-overlay {
+    animation: none;
+  }
+}
+
+/* A rolagem fica fora do fieldset para recortar corretamente os controles. */
+.admin-modal-form {
+  flex: 1;
+  overflow: hidden;
+}
+.admin-modal-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-inline-size: 0;
+  flex-shrink: 0;
+}
+.admin-modal-fields > .admin-alert {
+  margin: 0;
+}
+
+/* Account controls live in the page header. */
+.admin-nav{flex-wrap:wrap;gap:24px}
+.admin-nav .admin-back{margin-left:auto}
+.admin-nav .admin-session{margin:0;padding:0;border:0;gap:10px;display:flex;align-items:center;flex-wrap:wrap}
+.admin-nav .admin-account{margin-right:8px;gap:9px;min-width:0}
+.admin-nav .admin-account-avatar{width:36px;height:36px;font-size:22px}
+.admin-nav .admin-account small{display:none}
+.admin-nav .admin-account-email{font-size:11px;max-width:190px;overflow:hidden;text-overflow:ellipsis}
+.admin-nav .guest-secondary{min-height:38px;padding:10px 12px;font-size:11px}
+@media(max-width:900px){.admin-nav .admin-session{width:100%;border-top:1px solid #c7b79d40;padding-top:18px}.admin-nav .admin-account{margin-right:auto}}
+@media(max-width:480px){.admin-nav .admin-account{width:100%;flex-basis:100%}.admin-nav .admin-session .guest-secondary{flex:1}}
+
+.admin-profile-trigger{display:inline-flex;align-items:center;gap:8px;cursor:pointer;color:#697046;border-radius:var(--wedding-radius);padding:5px;background:#f8f7ef;border:1px solid #d9d7c6;flex-shrink:0}.admin-profile-trigger .admin-account-avatar{width:34px;height:34px;font-size:22px}.admin-profile-trigger:hover,.admin-profile-trigger[data-state="open"]{background:#eaeddc}.admin-profile-trigger:focus-visible{outline:2px solid #858b65;outline-offset:3px}.admin-profile-menu{z-index:260;min-width:240px;max-width:calc(100vw - 32px);padding:7px;border-radius:var(--wedding-radius);background:#fffdf9;border:1px solid #e3dccf;box-shadow:0 14px 45px #3d25011c;animation:admin-modal-fade .16s ease-out}.admin-profile-label{padding:12px 10px;color:#6c724c;font-size:11px}.admin-profile-label span{display:block;margin-top:7px;color:#80654e;overflow-wrap:anywhere;font-size:12px}.admin-profile-separator{height:1px;background:#e9e2d5;margin:4px 0}.admin-profile-item{display:flex;gap:9px;align-items:center;padding:12px 10px;color:#8c4a4c;font-size:12px;border-radius:var(--wedding-radius);cursor:pointer;outline:none}.admin-profile-item[data-highlighted]{background:#f9eded}.admin-profile-item[data-disabled]{opacity:.4;cursor:not-allowed}.admin-toolbar .admin-toolbar-refresh{flex-shrink:0;white-space:nowrap;min-height:48px;padding:12px 14px;font-size:11px}@media(max-width:600px){.admin-toolbar .admin-toolbar-refresh{width:100%}}
+
+.admin-profile-trigger{background:transparent;border:0;padding:0;gap:10px}.admin-profile-trigger:hover,.admin-profile-trigger[data-state="open"]{background:transparent;color:#3d2501}.admin-profile-name{font-size:11px;color:#66563e;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media(max-width:480px){.admin-profile-name{max-width:150px}.admin-nav .admin-back{margin-left:0}.admin-profile-trigger{margin-left:auto}}

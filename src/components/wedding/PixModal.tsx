@@ -28,7 +28,7 @@ export function PixModal({gift,customAmount,onClose}:{gift:GiftItem|null;customA
         <QRCodeSVG value={payload} size={180} marginSize={4} className="mx-auto"/>
         <p className="text-sm">Titular: {pix.receiverName}</p>
         <button className="bg-[#3D2501] text-[#F5F5DA] rounded-full py-3 px-6" onClick={async()=>{try{await navigator.clipboard.writeText(payload);setNotice("Código PIX copiado.");}catch{setNotice("Não foi possível copiar. Selecione o código abaixo.");}}}>Copiar código PIX</button>
-        <textarea readOnly aria-label="Código PIX" value={payload} className="w-full text-xs p-3 bg-[#F1F1F1] rounded-xl"/>
+        <textarea readOnly aria-label="Código PIX" value={payload} className="guest-input text-xs"/>
         <p role="status">{notice}</p>
       </div> : <p className="text-[#80654E] leading-relaxed">O PIX estará disponível em breve. Os dados de recebimento ainda estão sendo preparados pelos noivos.</p> : cardUrl ? <div className="space-y-5">
         <p className="text-[#80654E] text-sm leading-relaxed">Continue no checkout do {creditCard?.providerName}. Confira o valor, o titular, as taxas e as condições de parcelamento antes de pagar.</p>

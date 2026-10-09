@@ -1,459 +1,248 @@
 "use client";
-
-import { useState } from "react";
-import { useForm, useFieldArray, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-
+import { useEffect, useState } from "react";
+import { EnvelopeOpenIcon, CheckCircleIcon, PaperPlaneTiltIcon, UsersIcon } from "@phosphor-icons/react";
+import { WeddingSelect } from "@/components/ui/WeddingSelect";
 import confetti from "canvas-confetti";
 import { WeddingOrnaments } from "./WeddingOrnaments";
-import { weddingConfig } from "@/config/wedding.config";
-import {
-  CheckCircle2,
-  Users,
-  UserPlus,
-  Trash2,
-
-
-  MessageSquare,
-  AlertCircle,
-} from "lucide-react";
-
-const rsvpSchema = z
-  .object({
-    fullName: z
-      .string()
-      .min(3, "Por favor, informe seu nome completo.")
-      .max(100, "Nome muito longo."),
-    whatsapp: z
-      .string()
-      .min(10, "Informe um telefone/WhatsApp válido com DDD.")
-      .max(20, "Número inválido."),
-    attending: z.enum(["sim", "nao"], {
-      required_error: "Selecione se irá comparecer ou não.",
-    }),
-    hasCompanions: z.boolean().default(false),
-    companions: z.array(
-      z.object({
-        name: z
-          .string()
-          .min(3, "Informe o nome completo do acompanhante.")
-          .max(100, "Nome muito longo."),
-      })
-    ),
-    dietaryRestrictions: z.string().optional(),
-    message: z.string().max(500, "Mensagem muito longa.").optional(),
-  })
-  .refine(
-    (data) => {
-      if (data.attending === "sim" && data.hasCompanions) {
-        return (
-          data.companions.length > 0 &&
-          data.companions.every((c) => c.name && c.name.trim().length >= 3)
-        );
-      }
-      return true;
-    },
-    {
-      message:
-        "Por favor, informe o nome completo de todos os acompanhantes que irão com você.",
-      path: ["companions"],
-    }
-  );
-
-type RsvpFormValues = z.infer<typeof rsvpSchema>;
-
+import type { Attendance, RSVPSettings } from "@/types/guests";
+type PublicInvite = {
+  label: string;
+  guests: { id: string; name: string; status: Attendance }[];
+  revision: number;
+  respondedAt: string | null;
+  message: string;
+  dietaryRestrictions: string;
+};
 export function RSVPSection() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [submittedData, setSubmittedData] = useState<RsvpFormValues | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const {
-    register,
-    control,
-    handleSubmit,
-
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm<RsvpFormValues>({
-    resolver: zodResolver(rsvpSchema),
-    defaultValues: {
-      fullName: "",
-      whatsapp: "",
-      attending: "sim",
-      hasCompanions: false,
-      companions: [],
-      dietaryRestrictions: "",
-      message: "",
-    },
+  const [code, setCode] = useState("");
+  const [invite, setInvite] = useState<PublicInvite | null>(null);
+  const [settings, setSettings] = useState<RSVPSettings>({
+    enabled: true,
+    deadline: "",
   });
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [saved, setSaved] = useState(false);
+  const [closed, setClosed] = useState(false);
+  useEffect(() => {
+    let active = true;
+    const syncHash = () => {
+      const value = window.location.hash.slice(1);
+      if (/^[a-f0-9]{48}$/.test(value)) {
+        setCode(value); setBusy(true); setError("");
+        fetch("/api/rsvp/lookup", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:value})}).then(async response => { const result = await response.json(); if (!response.ok) throw new Error(result.error); if (!active) return; setInvite(result.invitation);setSettings(result.settings);setClosed(!result.settings.enabled || (!!result.settings.deadline && Date.now() > Date.parse(result.settings.deadline))); }).catch(e => {if(active) setError(e.message || "Não foi possível consultar o convite.");}).finally(() => {if(active) setBusy(false);});
+      }
+    };
+    window.addEventListener("hashchange", syncHash);
+    queueMicrotask(syncHash);
+    return () => { active = false; window.removeEventListener("hashchange", syncHash); };
+  }, []);
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "companions",
-  });
-
-  const attendingValue = useWatch({ control, name: "attending" });
-  const hasCompanionsValue = useWatch({ control, name: "hasCompanions" });
-
-  const onSubmit = async (data: RsvpFormValues) => {
-    setIsSubmitting(true);
-    setErrorMessage(null);
-
+  async function lookup(event: React.FormEvent) {
+    event.preventDefault();
+    const token = code.trim().toLowerCase();
+    if (!/^[a-f0-9]{48}$/.test(token)) {setError("Esse código parece incompleto ou inválido. Copie os 48 caracteres do convite enviado por Giovanna e Edson, sem espaços, ou abra o link que você recebeu."); return;}
+    setBusy(true);
+    setError("");
+    setSaved(false);
+    setInvite(null);
+    try {
+      const response = await fetch("/api/rsvp/lookup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: code.trim().toLowerCase() }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(response.status === 404 ? "Não encontramos um convite ativo com esse código. Confira se você copiou o código completo ou use o link recebido. Se continuar sem conseguir, fale com Giovanna ou Edson." : response.status === 400 ? "Não foi possível reconhecer esse código. Copie o código completo do convite ou abra o link enviado pelos noivos." : result.error);
+      setCode(token);
+      window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search + "#" + token);
+      setInvite(result.invitation);
+      setSettings(result.settings);
+      setClosed(
+        !result.settings.enabled ||
+          (!!result.settings.deadline &&
+            Date.now() > Date.parse(result.settings.deadline)),
+      );
+    } catch (e) {
+      setError(
+        e instanceof Error
+          ? e.message
+          : "Não foi possível consultar o convite.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!invite) return;
+    if (invite.guests.some(g => g.status === "pendente")) {setError("Escolha uma resposta para cada pessoa do convite."); return;}
+    setBusy(true);
+    setError("");
+    setSaved(false);
     try {
       const response = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          token: code.trim().toLowerCase(),
+          revision: invite.revision,
+          responses: invite.guests.map((g) => ({ id: g.id, status: g.status })),
+          message: invite.message,
+          dietaryRestrictions: invite.dietaryRestrictions,
+        }),
       });
-
       const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Não foi possível registrar no momento.");
-      }
-
-      setSubmittedData(data);
-      setIsSuccess(true);
-
-      if (data.attending === "sim") {
+      if (!response.ok) throw new Error(result.error);
+      setInvite({
+        ...invite,
+        revision: result.revision,
+        respondedAt: new Date().toISOString(),
+      });
+      setSaved(true);
+      if (invite.guests.some((g) => g.status === "confirmado"))
         confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ["#C89B6D", "#B89768", "#E8B4B8", "#F1F1F1", "#5C7C58"],
+          particleCount: 80,
+          spread: 65,
+          colors: ["#C7B79D", "#5D613C", "#80654E"],
         });
-      }
-    } catch (err: unknown) {
-      console.error(err);
-      setErrorMessage(
-        (err instanceof Error ? err.message : "") || "Ocorreu um erro ao enviar. Tente novamente ou confirme pelo WhatsApp."
+    } catch (e) {
+      setError(
+        e instanceof Error
+          ? e.message
+          : "Não foi possível salvar. Tente novamente.",
       );
     } finally {
-      setIsSubmitting(false);
+      setBusy(false);
     }
-  };
-
-  const generateWhatsAppMessageUrl = (data: RsvpFormValues) => {
-    const couple = weddingConfig.couple;
-    const phone = weddingConfig.rsvp.contactWhatsApp || weddingConfig.pix.whatsappConfirmationPhone;
-
-    let text = `Olá! Gostaria de confirmar minha presença no casamento de ${couple.partner1} e ${couple.partner2}!\n\n`;
-    text += `*Convidado(a):* ${data.fullName}\n`;
-    text += `*Telefone:* ${data.whatsapp}\n`;
-    text += `*Presença:* ${data.attending === "sim" ? "Confirmada com alegria" : "Infelizmente não poderei comparecer"}\n`;
-
-    if (data.attending === "sim" && data.companions && data.companions.length > 0) {
-      text += `\n*Acompanhante(s) confirmados:*\n`;
-      data.companions.forEach((comp, idx) => {
-        text += `${idx + 1}. ${comp.name}\n`;
-      });
-    }
-
-    if (data.dietaryRestrictions) {
-      text += `\n*Restrições alimentares:* ${data.dietaryRestrictions}\n`;
-    }
-
-    if (data.message) {
-      text += `\n*Recado:* "${data.message}"\n`;
-    }
-
-    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-  };
-
-    return (
+  }
+  return (
     <section
       id="rsvp"
-      className="cinematic-section relative overflow-hidden w-full py-16 sm:py-24 px-6 sm:px-12 lg:px-20 bg-[#F1F1F1] text-[#3D2501]"
+      className="rsvp-section relative overflow-hidden px-6 py-20 text-[#3D2501]"
     >
       <WeddingOrnaments variant="vows" tone="paper" />
-      <div className="relative z-10 max-w-5xl mx-auto space-y-10 sm:space-y-14">
-        <div className="text-center max-w-3xl mx-auto space-y-5">
-          <p data-cinema-copy className="cinema-eyebrow text-[#5D613C]">Esperamos você</p>
-          <h2 className="font-serif text-5xl sm:text-7xl font-light tracking-[-0.04em] leading-[1.08]">Confirmação de <span className="italic text-[#5D613C]">presença</span></h2>
-          <p data-cinema-copy className="font-serif italic text-xl sm:text-2xl text-[#80654E]">Sua presença faz parte da nossa história.</p>
-          <p className="text-sm text-[#80654E] font-light leading-relaxed">{weddingConfig.rsvp.deadlineDate ? "Favor confirmar até " + weddingConfig.rsvp.deadlineDate + "." : "Em breve, disponibilizaremos a confirmação de presença."}</p>
+      <div className="rsvp-shell relative z-10 mx-auto max-w-2xl space-y-8">
+        <div className="text-center">
+          <span className="rsvp-emblem"><EnvelopeOpenIcon size={30} weight="duotone" aria-hidden="true" /></span><p className="cinema-eyebrow">Um lugar especial para você</p>
+          <h2 className="font-serif text-5xl sm:text-7xl">
+            Confirmação de <em className="text-[#5D613C]">presença</em>
+          </h2>
+          <p className="mt-5 text-[#80654E]">
+            Abra seu link exclusivo ou informe o código enviado com o convite.
+          </p>
         </div>
-
-        {/* Formulário de confirmação */}
-        <div className="max-w-4xl mx-auto rounded-[2rem] sm:rounded-[3rem] bg-white/55 p-6 sm:p-10 lg:p-12 ring-1 ring-[#C7B79D]/35 shadow-[0_22px_65px_-40px_#3D250130]">
-          {isSuccess && submittedData ? (
-            <div className="py-6 space-y-8 text-center">
-              <div className="w-16 h-16 bg-[#3D2501] text-[#F5F5DA] rounded-full flex items-center justify-center mx-auto shadow-md">
-                <CheckCircle2 className="w-8 h-8" />
+        <div className="rsvp-card">
+          {!invite && <form onSubmit={lookup} className="space-y-4">
+            <label className="block text-sm" htmlFor="invite-code">
+              Código do convite
+            </label>
+            <input
+              id="invite-code"
+              aria-invalid={!!error}
+              aria-describedby={error ? "rsvp-error" : undefined}
+              autoComplete="off"
+              required
+              maxLength={48}
+              value={code}
+              onChange={(e) => {
+                setCode(e.target.value);
+                setInvite(null);
+                setSaved(false);
+              }}
+              className="guest-input"
+              disabled={busy}
+              placeholder="Cole aqui o código do seu convite"
+            />
+            <button className="guest-button w-full" disabled={busy}>
+              {busy ? "Aguarde…" : "Consultar convite"}
+            </button>
+          </form>}
+          {busy && !invite && <div className="rsvp-loading" role="status"><span className="wedding-skeleton" /><span className="wedding-skeleton" /><p>Preparando seu convite…</p></div>}
+          {error && (
+            <p
+              role="alert"
+              id="rsvp-error"
+              className="mt-5 rounded-xl bg-rose-50 p-4 text-rose-800"
+            >
+              {error}
+            </p>
+          )}
+          {saved && (
+            <p
+              role="status"
+              className="mt-5 rounded-xl bg-green-50 p-4 text-green-800"
+            >
+              <CheckCircleIcon size={22} className="inline mr-2" aria-hidden="true" />Resposta salva! Obrigado pelo carinho. Você pode revisar sua
+              resposta até o encerramento das confirmações.
+            </p>
+          )}
+          {invite && (
+            <form onSubmit={submit} className="rsvp-response space-y-6">
+              <div>
+                <button type="button" className="rsvp-change" disabled={busy} onClick={() => {setInvite(null);setCode("");setSaved(false);setError("");if (/^[a-f0-9]{48}$/.test(window.location.hash.slice(1))) window.history.replaceState(null,"",window.location.pathname + window.location.search);}}>Consultar outro convite</button><p className="rsvp-card-eyebrow"><UsersIcon size={16} aria-hidden="true" /> Seu convite</p><h3 className="font-serif text-3xl">{invite.label}</h3><p className="rsvp-instruction">Conte para nós quem estará presente nesse dia tão especial.</p>
+                {invite.respondedAt && (
+                  <p className="mt-2 text-sm">
+                    Já recebemos uma resposta deste convite. Confira abaixo e
+                    altere se precisar.
+                  </p>
+                )}
+                {settings.deadline && (
+                  <p className="mt-2 text-sm">
+                    Prazo:{" "}
+                    {new Date(settings.deadline).toLocaleString("pt-BR", {
+                      timeZone: "America/Sao_Paulo",
+                    })}{" "}
+                    (Brasília).
+                  </p>
+                )}
               </div>
-
-              <div className="space-y-2">
-                <h3 className="font-serif text-4xl sm:text-5xl font-light text-[#3D2501]">
-                  {submittedData.attending === "sim"
-                    ? "Presença Confirmada!"
-                    : "Agradecemos o seu retorno"}
-                </h3>
-                <p className="text-[#80654E] text-sm sm:text-base font-light">
-                  {submittedData.attending === "sim"
-                    ? "Será uma honra imensa ter você ao nosso lado neste dia inesquecível!"
-                    : "Sentiremos muito sua falta, mas guardamos seu carinho em nossos corações."}
+              {closed ? (
+                <p role="status">
+                  As confirmações estão encerradas. Para alterações, fale com os
+                  noivos.
                 </p>
-              </div>
-
-              {/* Lista dos Nomes Confirmados */}
-              {submittedData.attending === "sim" && (
-                <div className="border-t border-b border-[#3D2501]/15 py-6 space-y-2 text-left">
-                  <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#5D613C] font-semibold">
-                    Confirmados na Recepção:
-                  </p>
-                  <p className="font-serif text-xl text-[#3D2501]">
-                    &bull; {submittedData.fullName}
-                  </p>
-                  {submittedData.companions &&
-                    submittedData.companions.map((comp, idx) => (
-                      <p key={idx} className="font-serif text-lg text-[#80654E] pl-4">
-                        &bull; {comp.name} <span className="text-xs font-mono uppercase text-[#80654E]/70">(Acompanhante)</span>
-                      </p>
-                    ))}
-                </div>
-              )}
-
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                {weddingConfig.rsvp.contactWhatsApp && <a href={generateWhatsAppMessageUrl(submittedData)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#3D2501] hover:bg-[#80654E] text-[#F5F5DA] font-medium px-8 py-3.5 rounded-full text-xs font-mono uppercase tracking-[0.2em] transition-colors"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Enviar no WhatsApp</span>
-                </a>}
-
-                <button
-                  onClick={() => {
-                    setIsSuccess(false);
-                    reset();
-                  }}
-                  className="w-full sm:w-auto text-[#80654E] hover:text-[#3D2501] text-xs font-mono uppercase tracking-widest px-4 py-2"
-                >
-                  Confirmar Outro Convidado
-                </button>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10"><fieldset disabled={process.env.NEXT_PUBLIC_RSVP_ENABLED !== "true" || isSubmitting} className="space-y-10 disabled:opacity-75">
-              {errorMessage && (
-                <div className="p-4 bg-rose-50 border-l-2 border-rose-600 text-rose-800 text-xs flex items-start gap-3">
-                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
-                  <span>{errorMessage}</span>
-                </div>
-              )}
-
-              {/* Nome */}
-              <div className="space-y-2">
-                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
-                  Seu Nome Completo *
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ex: Nome do Convidado"
-                  {...register("fullName")}
-                  className={`w-full py-3 bg-transparent border-b ${
-                    errors.fullName ? "border-rose-500" : "border-[#3D2501]/20 focus:border-[#5D613C]"
-                  } text-lg font-serif text-[#3D2501] placeholder-[#80654E]/50 focus:outline-none transition-colors`}
-                />
-                {errors.fullName && (
-                  <p className="text-xs text-rose-600 mt-1 font-light">{errors.fullName.message}</p>
-                )}
-              </div>
-
-              {/* WhatsApp */}
-              <div className="space-y-2">
-                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
-                  Seu Telefone / WhatsApp *
-                </label>
-                <input
-                  type="tel"
-                  placeholder="Ex: (11) 99999-9999"
-                  {...register("whatsapp")}
-                  className={`w-full py-3 bg-transparent border-b ${
-                    errors.whatsapp ? "border-rose-500" : "border-[#3D2501]/20 focus:border-[#5D613C]"
-                  } text-lg font-serif text-[#3D2501] placeholder-[#80654E]/50 focus:outline-none transition-colors`}
-                />
-                {errors.whatsapp && (
-                  <p className="text-xs text-rose-600 mt-1 font-light">{errors.whatsapp.message}</p>
-                )}
-              </div>
-
-              {/* Comparecimento */}
-              <div className="space-y-4 pt-2">
-                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
-                  Você comparecerá ao casamento? *
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <label
-                    className={`flex items-center justify-center p-4 border cursor-pointer transition-all ${
-                      attendingValue === "sim"
-                        ? "bg-[#3D2501] border-[#3D2501] text-[#F5F5DA]"
-                        : "border-[#3D2501]/20 text-[#3D2501] hover:border-[#3D2501]"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      value="sim"
-                      {...register("attending")}
-                      className="sr-only"
-                    />
-                    <span className="text-xs font-mono uppercase tracking-[0.2em]">
-                      Sim, com certeza!
-                    </span>
-                  </label>
-
-                  <label
-                    className={`flex items-center justify-center p-4 border cursor-pointer transition-all ${
-                      attendingValue === "nao"
-                        ? "bg-[#80654E] border-[#80654E] text-[#F5F5DA]"
-                        : "border-[#3D2501]/20 text-[#80654E] hover:border-[#80654E]"
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      value="nao"
-                      {...register("attending")}
-                      className="sr-only"
-                    />
-                    <span className="text-xs font-mono uppercase tracking-[0.2em]">
-                      Não poderei comparecer
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              {/* SEÇÃO DE ACOMPANHANTES */}
-              {attendingValue === "sim" && (
-                <div className="pt-6 border-t border-[#3D2501]/15 space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <label className="text-xs font-mono uppercase tracking-[0.2em] text-[#3D2501] flex items-center gap-2 font-medium">
-                        <Users className="w-4 h-4 text-[#5D613C]" />
-                        Você levará acompanhante(s)?
-                      </label>
-                      <p className="text-xs text-[#80654E] font-light mt-0.5">
-                        Cônjuge, namorado(a) ou familiares.
-                      </p>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const nextState = !hasCompanionsValue;
-                        setValue("hasCompanions", nextState);
-                        if (nextState && fields.length === 0) {
-                          append({ name: "" });
-                        } else if (!nextState) {
-                          setValue("companions", []);
-                        }
-                      }}
-                      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-300 ease-in-out ${
-                        hasCompanionsValue ? "bg-[#3D2501]" : "bg-[#C7B79D]"
-                      }`}
-                    >
-                      <span
-                        className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-xs transition duration-300 ease-in-out ${
-                          hasCompanionsValue ? "translate-x-5" : "translate-x-0"
-                        }`}
-                      />
-                    </button>
-                  </div>
-
-                  {/* Campos com Nomes dos Acompanhantes */}
-                  {hasCompanionsValue && (
-                    <div className="space-y-4 pt-2">
-                      <div className="flex items-center justify-between">
-                        <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#5D613C] font-semibold">
-                          Nome Completo de cada Acompanhante
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => append({ name: "" })}
-                          className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#3D2501] hover:text-[#5D613C] transition-colors"
-                        >
-                          <UserPlus className="w-3.5 h-3.5" />
-                          <span>+ Adicionar outro</span>
-                        </button>
-                      </div>
-
-                      <div className="space-y-4">
-                        {fields.map((field, index) => (
-                          <div key={field.id} className="space-y-1">
-                            <div className="flex items-center gap-4">
-                              <span className="text-xs font-mono text-[#80654E] w-6">
-                                0{index + 1}.
-                              </span>
-                              <input
-                                type="text"
-                                placeholder={`Nome completo do acompanhante ${index + 1}`}
-                                {...register(`companions.${index}.name` as const)}
-                                className="flex-1 py-2.5 bg-transparent border-b border-[#3D2501]/20 focus:border-[#5D613C] text-base font-serif text-[#3D2501] focus:outline-none"
-                              />
-                              {fields.length > 1 && (
-                                <button
-                                  type="button"
-                                  onClick={() => remove(index)}
-                                  className="p-2 text-[#80654E] hover:text-rose-600 transition-colors"
-                                  title="Remover acompanhante"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              )}
-                            </div>
-                            {errors.companions?.[index]?.name && (
-                              <p className="text-xs text-rose-600 pl-10 font-light">
-                                {errors.companions[index]?.name?.message}
-                              </p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Restrições Alimentares */}
-                  <div className="space-y-2 pt-2">
-                    <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
-                      Restrições Alimentares (Opcional)
+              ) : (
+                <fieldset disabled={busy} className="space-y-5">
+                  {invite.guests.map((g) => (
+                    <label key={g.id} className="rsvp-person block space-y-2">
+                      <span className="rsvp-person-heading"><span className="rsvp-person-avatar" aria-hidden="true">{g.name.slice(0,1)}</span>{g.name}</span>
+                      <WeddingSelect label={"Presença de " + g.name} disabled={busy} placeholder="Selecione uma resposta" value={g.status === "pendente" ? "" : g.status} onValueChange={value => {setSaved(false);setInvite({...invite,guests:invite.guests.map(p => p.id === g.id ? {...p,status:value as Attendance} : p)});}} options={[{value:"confirmado",label:"Vou comparecer"},{value:"recusado",label:"Não poderei comparecer"}]} />
                     </label>
-                    <input
-                      type="text"
-                      placeholder="Ex: Vegetariano, intolerância a glúten ou lactose..."
-                      {...register("dietaryRestrictions")}
-                      className="w-full px-4 py-3.5 rounded-2xl bg-[#F1F1F1]/80 border border-[#C7B79D]/30 focus:border-[#5D613C] text-base font-sans text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none"
+                  ))}
+                  <label className="block space-y-2">
+                    <span>Restrições alimentares (opcional)</span>
+                    <textarea
+                      className="guest-input"
+                      maxLength={500}
+                      value={invite.dietaryRestrictions}
+                      onChange={(e) => {
+                        setSaved(false); setInvite({
+                          ...invite,
+                          dietaryRestrictions: e.target.value,
+                        }); }
+                      }
                     />
-                  </div>
-                </div>
+                  </label>
+                  <label className="block space-y-2">
+                    <span>Recado aos noivos (opcional)</span>
+                    <textarea
+                      className="guest-input"
+                      maxLength={500}
+                      value={invite.message}
+                      onChange={(e) => {setSaved(false); setInvite({ ...invite, message: e.target.value });}}
+                    />
+                  </label>
+                  <p className="text-sm text-[#80654E]">
+                    Cada pessoa deve estar incluída no convite. Para ajustar a
+                    lista, fale com Giovanna ou Edson.
+                  </p>
+                  <button className="guest-button w-full" disabled={busy}>
+                    <PaperPlaneTiltIcon size={18} aria-hidden="true" />{busy ? "Salvando…" : "Salvar respostas"}
+                  </button>
+                </fieldset>
               )}
-
-              {/* Mensagem */}
-              <div className="space-y-2">
-                <label className="block text-[11px] uppercase tracking-[0.15em] text-[#5D613C] font-semibold">
-                  Recado aos Noivos (Opcional)
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="Deixe uma mensagem de carinho..."
-                  {...register("message")}
-                  className="w-full px-4 py-3.5 rounded-2xl bg-[#F1F1F1]/80 border border-[#C7B79D]/30 focus:border-[#5D613C] text-base font-sans text-[#3D2501] placeholder-[#80654E]/60 focus:outline-none resize-none"
-                />
-              </div>
-
-              {/* Botão de Envio */}
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-5 px-8 bg-[#3D2501] hover:bg-[#80654E] text-[#F5F5DA] font-mono text-xs uppercase tracking-[0.25em] rounded-full transition-colors disabled:opacity-50 font-medium"
-                >
-                  {isSubmitting ? "Confirmando Presença..." : "Confirmar Presença"}
-                </button>
-              </div>
-            </fieldset></form>
+            </form>
           )}
         </div>
       </div>
